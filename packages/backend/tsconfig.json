@@ -16,6 +16,7 @@
 		"removeComments": false,
 		"noLib": false,
 		"strict": true,
+		"preserveWatchOutput": true,
 		"strictNullChecks": true,
 		"strictPropertyInitialization": false,
 		"skipLibCheck": true,
