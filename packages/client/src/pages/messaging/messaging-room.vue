@@ -1,7 +1,7 @@
 <template>
 <div
 	ref="rootEl"
-	class="_section"
+	class="_section mk-messaging-room-container"
 	@dragover.prevent.stop="onDragover"
 	@drop.prevent.stop="onDrop"
 >
@@ -29,7 +29,8 @@
 				</template>
 			</MkPagination>
 		</div>
-		<footer>
+	</div>
+	<footer>
 			<div v-if="typers.length > 0" class="typers">
 				<I18n :src="i18n.ts.typingUsers" text-tag="span" class="users">
 					<template #users>
@@ -45,7 +46,6 @@
 			</transition>
 			<XForm v-if="!fetching" ref="formEl" :user="user" :group="group" class="form"/>
 		</footer>
-	</div>
 </div>
 </template>
 
@@ -305,53 +305,14 @@ definePageMetadata(computed(() => !fetching ? user ? {
 </script>
 
 <style lang="scss" scoped>
-.mk-messaging-room {
-	position: relative;
-	overflow: auto;
-
-	> .body {
-		.more {
-			display: block;
-			margin: 16px auto;
-			padding: 0 12px;
-			line-height: 24px;
-			color: #fff;
-			background: rgba(#000, 0.3);
-			border-radius: 12px;
-
-			&:hover {
-				background: rgba(#000, 0.4);
-			}
-
-			&:active {
-				background: rgba(#000, 0.5);
-			}
-
-			&.fetching {
-				cursor: wait;
-			}
-
-			> i {
-				margin-right: 4px;
-			}
-		}
-
-		.messages {
-			padding: 8px 0;
-
-			> ::v-deep(*) {
-				margin-bottom: 16px;
-			}
-		}
-	}
-
+.mk-messaging-room-container {
 	> footer {
 		width: 100%;
 		position: sticky;
 		z-index: 2;
 		bottom: 0;
 		padding-top: 8px;
-		bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+		bottom: env(safe-area-inset-bottom, 0px);
 
 		> .new-message {
 			width: 100%;
@@ -396,6 +357,47 @@ definePageMetadata(computed(() => !fetching ? user ? {
 			max-height: 12em;
 			overflow-y: scroll;
 			border-top: solid 0.5px var(--divider);
+		}
+	}
+}
+
+.mk-messaging-room {
+	position: relative;
+	overflow: auto;
+
+	> .body {
+		.more {
+			display: block;
+			margin: 16px auto;
+			padding: 0 12px;
+			line-height: 24px;
+			color: #fff;
+			background: rgba(#000, 0.3);
+			border-radius: 12px;
+
+			&:hover {
+				background: rgba(#000, 0.4);
+			}
+
+			&:active {
+				background: rgba(#000, 0.5);
+			}
+
+			&.fetching {
+				cursor: wait;
+			}
+
+			> i {
+				margin-right: 4px;
+			}
+		}
+
+		.messages {
+			padding: 8px 0;
+
+			> ::v-deep(*) {
+				margin-bottom: 16px;
+			}
 		}
 	}
 }

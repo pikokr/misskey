@@ -239,6 +239,8 @@ defineExpose({
 .pemppnzi {
 	position: relative;
 
+	border-radius: 0;
+
 	> textarea {
 		cursor: auto;
 		display: block;
