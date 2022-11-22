@@ -6,10 +6,20 @@
       "dynamicImport": true,
       "decorators": true
     },
+		"target": "es2022",
     "transform": {
       "legacyDecorator": true,
       "decoratorMetadata": true
-    }
+    },
+		"experimental": {
+			"keepImportAssertions": true
+		},
+		"baseUrl": ".",
+		"paths": {
+			"@/*": [
+				"./src/*"
+			]
+		}
   },
   "minify": false
 }

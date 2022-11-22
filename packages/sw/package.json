@@ -1,4 +1,6 @@
 {
+	"name": "misskey-sw",
+	"version": "0.0.0",
 	"private": true,
 	"scripts": {
 		"watch": "node build.js watch",

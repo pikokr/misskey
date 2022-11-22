@@ -1,4 +1,6 @@
 {
+	"name": "misskey-client",
+	"version": "0.0.0",
 	"private": true,
 	"scripts": {
 		"watch": "vite build --watch --mode development",
