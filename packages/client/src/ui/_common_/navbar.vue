@@ -168,7 +168,7 @@ function more(ev: MouseEvent) {
 		left: 0;
 		z-index: 1001;
 		width: $nav-icon-only-width;
-		height: 100dvh;
+		height: calc(var(--vh, 1vh) * 100);
 		box-sizing: border-box;
 		overflow: auto;
 		overflow-x: clip;

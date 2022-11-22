@@ -28,7 +28,7 @@ document.documentElement.style.overflowY = 'scroll';
 
 <style lang="scss" scoped>
 .mk-app {
-	min-height: 100dvh;
+	min-height: calc(var(--vh, 1vh) * 100);
 	box-sizing: border-box;
 }
 </style>
