@@ -2,6 +2,8 @@ FROM node:18.12.1-bullseye AS builder
 
 ARG NODE_ENV=production
 
+ENV DOCKER=true
+
 WORKDIR /misskey
 
 COPY . ./
@@ -10,7 +12,7 @@ RUN apt-get update
 RUN apt-get install -y build-essential
 RUN git submodule update --init
 RUN NODE_ENV= yarn install
-RUN yarn build
+RUN yarn zx patch-version.mjs && yarn build
 RUN rm -rf .git
 
 FROM node:18.12.1-bullseye-slim AS runner

@@ -42,8 +42,8 @@ export class SignupApiService {
 	) {
 	}
 
-	public async signup(ctx: Koa.Context) {
-		const body = ctx.request.body;
+	public async signup(ctx: Koa.Context): Promise<void> {
+		const body = ctx.request.body as Record<string, string>;
 
 		const instance = await this.metaService.fetch(true);
 	
@@ -71,9 +71,9 @@ export class SignupApiService {
 	
 		const username = body['username'];
 		const password = body['password'];
-		const host: string | null = process.env.NODE_ENV === 'test' ? (body['host'] ?? null) : null;
-		const invitationCode = body['invitationCode'];
-		const emailAddress = body['emailAddress'];
+		const host: string | null = process.env.NODE_ENV === 'test' ? ((body['host'] as string | undefined) ?? null) : null;
+		const invitationCode = body['invitationCode'] as string | null;
+		const emailAddress = body['emailAddress'] as string | null; 
 	
 		if (instance.emailRequiredForSignup) {
 			if (emailAddress == null || typeof emailAddress !== 'string') {
@@ -81,7 +81,7 @@ export class SignupApiService {
 				return;
 			}
 	
-			const available = await this.emailService.validateEmailForAccount(emailAddress);
+			const { available } = await this.emailService.validateEmailForAccount(emailAddress);
 			if (!available) {
 				ctx.status = 400;
 				return;
@@ -89,7 +89,7 @@ export class SignupApiService {
 		}
 	
 		if (instance.disableRegistration) {
-			if (invitationCode == null || typeof invitationCode !== 'string') {
+			if (invitationCode === null || typeof invitationCode !== 'string') {
 				ctx.status = 400;
 				return;
 			}
@@ -117,14 +117,14 @@ export class SignupApiService {
 				id: this.idService.genId(),
 				createdAt: new Date(),
 				code,
-				email: emailAddress,
+				email: emailAddress as string,
 				username: username,
 				password: hash,
 			});
 	
 			const link = `${this.config.url}/signup-complete/${code}`;
 	
-			this.emailService.sendEmail(emailAddress, 'Signup',
+			this.emailService.sendEmail(emailAddress as string, 'Signup',
 				`To complete signup, please click this link:<br><a href="${link}">${link}</a>`,
 				`To complete signup, please click this link: ${link}`);
 	
@@ -140,24 +140,24 @@ export class SignupApiService {
 					includeSecrets: true,
 				});
 	
-				(res as any).token = secret;
+				(res as unknown as {token: string}).token = secret;
 	
 				ctx.body = res;
 			} catch (e) {
-				ctx.throw(400, e);
+				ctx.throw(400, e as Error);
 			}
 		}
 	}
 
-	public async signupPending(ctx: Koa.Context) {
-		const body = ctx.request.body;
+	public async signupPending(ctx: Koa.Context): Promise<void> {
+		const body = ctx.request.body as Record<string, string>;
 
 		const code = body['code'];
 
 		try {
 			const pendingUser = await this.userPendingsRepository.findOneByOrFail({ code });
 
-			const { account, secret } = await this.signupService.signup({
+			const { account } = await this.signupService.signup({
 				username: pendingUser.username,
 				passwordHash: pendingUser.password,
 			});
@@ -176,7 +176,7 @@ export class SignupApiService {
 
 			this.signinService.signin(ctx, account as ILocalUser);
 		} catch (e) {
-			ctx.throw(400, e);
+			ctx.throw(400, e as Error);
 		}
 	}
 }
