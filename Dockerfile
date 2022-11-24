@@ -8,7 +8,7 @@ WORKDIR /misskey
 
 COPY . ./
 
-RUN apt-get update
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y build-essential
 RUN git submodule update --init
 RUN NODE_ENV= yarn install
@@ -19,7 +19,7 @@ FROM node:18.12.1-bullseye-slim AS runner
 
 WORKDIR /misskey
 
-RUN apt-get update
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y ffmpeg tini
 
 COPY --from=builder /misskey/.yarn ./.yarn
