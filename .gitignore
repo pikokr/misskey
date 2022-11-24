@@ -16,9 +16,7 @@ report.*.json
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-packages/client/.yarn/cache
-packages/backend/.yarn/cache
-packages/sw/.yarn/cache
+!.yarn/cache
 
 # Cypress
 cypress/screenshots
