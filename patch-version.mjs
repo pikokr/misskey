@@ -6,4 +6,4 @@ if (!process.env.DOCKER) throw new Error('Don\'t run this script on dev environm
 
 packageJson.version = `paring.${(await $`git rev-parse --short HEAD`).toString().trim()}`
 
-await fs.promises.writeFile('paciage.json', JSON.stringify(packageJson))
+await fs.promises.writeFile('package.json', JSON.stringify(packageJson))
