@@ -7,7 +7,7 @@ const execa = require('execa');
 		stderr: process.stderr,
 	});
 
-	execa('npx', ['gulp', 'watch'], {
+	execa('yarn', ['dlx', 'gulp', 'watch'], {
 		cwd: __dirname + '/../',
 		stdout: process.stdout,
 		stderr: process.stderr,
