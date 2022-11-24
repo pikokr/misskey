@@ -22,6 +22,7 @@ WORKDIR /misskey
 RUN apt-get update
 RUN apt-get install -y ffmpeg tini
 
+COPY --from=builder /misskey/.yarn ./.yarn
 COPY --from=builder /misskey/node_modules ./node_modules
 COPY --from=builder /misskey/built ./built
 COPY --from=builder /misskey/packages/backend/node_modules ./packages/backend/node_modules
