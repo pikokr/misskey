@@ -227,7 +227,7 @@ import { getAccountFromId } from '@/scripts/get-account-from-id';
 		// テーマリビルドするため
 		localStorage.removeItem('theme');
 
-		try { // 変なバージョン文字列来るとcompareVersionsでエラーになるため
+		try { // 変なバージョン文字列来るとcompareVersionsでエラーになるため			
 			if (lastVersion != null && compareVersions(version, lastVersion) === 1) {
 				// ログインしてる場合だけ
 				if ($i) {

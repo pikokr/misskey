@@ -19,9 +19,9 @@ import { i18n } from '@/i18n';
 
 const modal = ref<InstanceType<typeof MkModal>>();
 
-const whatIsNew = () => {
-	modal.value.close();
-	window.open(`https://misskey-hub.net/docs/releases.html#_${version.replace(/\./g, '-')}`, '_blank');
+const whatIsNew = (): void => {
+	modal.value?.close();
+	window.open('https://about.pikokr.dev/misskey/patchnote', '_blank');
 };
 </script>
 
