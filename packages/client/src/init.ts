@@ -228,7 +228,7 @@ import { getAccountFromId } from '@/scripts/get-account-from-id';
 		localStorage.removeItem('theme');
 
 		try { // 変なバージョン文字列来るとcompareVersionsでエラーになるため			
-			if (lastVersion != null && compareVersions(version, lastVersion) === 1) {
+			if (lastVersion != null) {
 				// ログインしてる場合だけ
 				if ($i) {
 					popup(defineAsyncComponent(() => import('@/components/MkUpdated.vue')), {}, {}, 'closed');

@@ -20,7 +20,7 @@ gulp.task('copy:client:fonts', () =>
 );
 
 gulp.task('copy:client:fontawesome', () =>
-	gulp.src('./node_modules/@fortawesome/fontawesome-free/**/*').pipe(gulp.dest('./built/_client_dist_/fontawesome/'))
+	gulp.src('./packages/client/node_modules/@fortawesome/fontawesome-free/**/*').pipe(gulp.dest('./built/_client_dist_/fontawesome/'))
 );
 
 gulp.task('copy:client:locales', cb => {

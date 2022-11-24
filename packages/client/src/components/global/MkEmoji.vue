@@ -22,8 +22,6 @@ const props = defineProps<{
 	emojisOnly?: boolean;
 }>();
 
-console.log(props.emojisOnly);
-
 const isCustom = computed(() => props.emoji.startsWith(':'));
 const char = computed(() => isCustom.value ? null : props.emoji);
 const useOsNativeEmojis = computed(() => defaultStore.state.useOsNativeEmojis && !props.isReaction);
@@ -60,14 +58,14 @@ const alt = computed(() => customEmoji.value ? `:${customEmoji.value.name}:` : c
 			transform: scale(1.2);
 		}
 
-		/* &.normal {
+		&.normal {
 			height: 1.25em;
 			vertical-align: -0.25em;
 
 			&:hover {
 				transform: none;
 			}
-		} */
+		}
 	}
 
 	&.noStyle {
