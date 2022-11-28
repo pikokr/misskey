@@ -1,12 +1,12 @@
 <template>
-<img v-if="customEmoji" class="mk-emoji custom" :class="{ normal, noStyle, 'emojis-only': props.emojisOnly }" :src="url" :alt="alt" :title="alt" decoding="async"/>
-<img v-else-if="char && !useOsNativeEmojis" class="mk-emoji" :class="{'emojis-only': props.emojisOnly}" :src="url" :alt="alt" :title="alt" decoding="async"/>
+<img v-if="customEmoji" class="mk-emoji custom" :class="{ normal, noStyle }" :src="url" :alt="alt" :title="alt" decoding="async"/>
+<img v-else-if="char && !useOsNativeEmojis" class="mk-emoji" :src="url" :alt="alt" :title="alt" decoding="async"/>
 <span v-else-if="char && useOsNativeEmojis">{{ char }}</span>
 <span v-else>{{ emoji }}</span>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { CustomEmoji } from 'misskey-js/built/entities';
 import { getStaticImageUrl } from '@/scripts/get-static-image-url';
 import { char2filePath } from '@/scripts/twemoji-base';
@@ -19,7 +19,6 @@ const props = defineProps<{
 	noStyle?: boolean;
 	customEmojis?: CustomEmoji[];
 	isReaction?: boolean;
-	emojisOnly?: boolean;
 }>();
 
 const isCustom = computed(() => props.emoji.startsWith(':'));
@@ -43,11 +42,6 @@ const alt = computed(() => customEmoji.value ? `:${customEmoji.value.name}:` : c
 .mk-emoji {
 	height: 1.25em;
 	vertical-align: -0.25em;
-
-	&.emojis-only {
-		height: 3em !important;
-		vertical-align: middle;
-	}
 
 	&.custom {
 		height: 2.5em;

@@ -54,11 +54,7 @@ export default defineComponent({
 			return t.match(/^[0-9.]+s$/) ? t : null;
 		};
 
-		type Types = mfm.MfmNode['type']
-
 		const genEl = (ast: mfm.MfmNode[]) => concat(ast.map((token): VNode[] => {
-			const emojisOnly = ast.every(x => (['emojiCode', 'unicodeEmoji'] as Types[]).includes(x.type) || (x.type === 'text' && !x.props.text.trim().length));
-
 			switch (token.type) {
 				case 'text': {
 					const text = token.props.text.replace(/(\r\n|\n|\r)/g, '\n');
@@ -281,7 +277,6 @@ export default defineComponent({
 						emoji: `:${token.props.name}:`,
 						customEmojis: this.customEmojis,
 						normal: this.plain,
-						emojisOnly,
 					})];
 				}
 
@@ -291,8 +286,6 @@ export default defineComponent({
 						emoji: token.props.emoji,
 						customEmojis: this.customEmojis,
 						normal: this.plain,
-						emojisOnly,
-
 					})];
 				}
 
