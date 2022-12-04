@@ -2,14 +2,14 @@ version: "3"
 
 services:
   web:
-    build: .
+    image: registry.pikokr.dev/misskey/misskey:paring
     restart: always
     links:
       - db
       - redis
 #      - es
     ports:
-      - "3000:3000"
+      - "4000:4000"
     networks:
       - internal_network
       - external_network
