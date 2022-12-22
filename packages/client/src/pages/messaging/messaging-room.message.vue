@@ -2,7 +2,17 @@
 <div v-size="{ max: [400, 500] }" class="thvuemwp" :class="{ isMe }">
 	<MkAvatar class="avatar" :user="message.user" :show-indicator="true"/>
 	<div class="content">
-		<div class="balloon" :class="{ noText: message.text == null }" >
+		<div class="user-profile-area">
+			<div class="username">
+				<MkA v-user-preview="message.userId" class="name" :to="userPage(message.user)">
+					<MkUserName :user="message.user"/>
+				</MkA>
+				<div class="handle">
+					@{{ message.user.username }}
+				</div>
+			</div>
+		</div>
+		<div class="balloon" :class="{ noText: message.text == null }">
 			<button v-if="isMe" class="delete-button" :title="$ts.delete" @click="del">
 				<img src="/client-assets/remove.png" alt="Delete"/>
 			</button>
@@ -36,13 +46,13 @@
 </template>
 
 <script lang="ts" setup>
-import { } from 'vue';
 import * as mfm from 'mfm-js';
 import * as Misskey from 'misskey-js';
 import { extractUrlFromMfm } from '@/scripts/extract-url-from-mfm';
 import MkUrlPreview from '@/components/MkUrlPreview.vue';
 import * as os from '@/os';
 import { $i } from '@/account';
+import { userPage } from '@/filters/user';
 
 const props = defineProps<{
 	message: Misskey.entities.MessagingMessage;
@@ -67,6 +77,20 @@ function del(): void {
 	background-color: transparent;
 	display: flex;
 
+	padding: 16px 24px;
+
+	.user-profile-area {
+		.username {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+
+			.handle {
+				opacity: .75;
+			}
+		}
+	}
+
 	> .avatar {
 		position: sticky;
 		top: calc(var(--stickyTop, 0px) + 16px);
@@ -78,13 +102,13 @@ function del(): void {
 
 	> .content {
 		min-width: 0;
+		padding-left: 12px;
 
 		> .balloon {
 			position: relative;
 			display: inline-flex;
 			align-items: center;
 			padding: 0;
-			min-height: 38px;
 			border-radius: 16px;
 			max-width: 100%;
 
@@ -145,7 +169,6 @@ function del(): void {
 				> .text {
 					display: block;
 					margin: 0;
-					padding: 12px 18px;
 					overflow: hidden;
 					overflow-wrap: break-word;
 					word-break: break-word;
@@ -206,98 +229,6 @@ function del(): void {
 
 			> i {
 				margin-left: 4px;
-			}
-		}
-	}
-
-	&:not(.isMe) {
-		padding-left: var(--margin);
-
-		> .content {
-			padding-left: 16px;
-			padding-right: 32px;
-
-			> .balloon {
-				$color: var(--messageBg);
-				background: $color;
-
-				&.noText {
-					background: transparent;
-				}
-
-				&:not(.noText):before {
-					left: -14px;
-					border-top: solid 8px transparent;
-					border-right: solid 8px $color;
-					border-bottom: solid 8px transparent;
-					border-left: solid 8px transparent;
-				}
-
-				> .content {
-					> .text {
-						color: var(--fg);
-					}
-				}
-			}
-
-			> footer {
-				text-align: left;
-			}
-		}
-	}
-
-	&.isMe {
-		flex-direction: row-reverse;
-		padding-right: var(--margin);
-		right: var(--margin); // 削除時にposition: absoluteになったときに使う
-
-		> .content {
-			padding-right: 16px;
-			padding-left: 32px;
-			text-align: right;
-
-			> .balloon {
-				background: $me-balloon-color;
-				text-align: left;
-
-				::selection {
-					color: var(--accent);
-					background-color: #fff;
-				} 
-
-				&.noText {
-					background: transparent;
-				}
-
-				&:not(.noText):before {
-					right: -14px;
-					left: auto;
-					border-top: solid 8px transparent;
-					border-right: solid 8px transparent;
-					border-bottom: solid 8px transparent;
-					border-left: solid 8px $me-balloon-color;
-				}
-
-				> .content {
-
-					> p.is-deleted {
-						color: rgba(#fff, 0.5);
-					}
-
-					> .text {
-						&, ::v-deep(*) {
-							color: var(--fgOnAccent) !important;
-						}
-					}
-				}
-			}
-
-			> footer {
-				text-align: right;
-
-				> .read {
-					user-select: none;
-				}
 			}
 		}
 	}

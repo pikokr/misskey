@@ -19,6 +19,7 @@
 					<XList
 						v-if="messages.length > 0"
 						v-slot="{ item: message }"
+						no-gap
 						:class="{ messages: true, 'deny-move-transition': pFetching }"
 						:items="messages"
 						direction="up"
@@ -31,21 +32,21 @@
 		</div>
 	</div>
 	<footer>
-			<div v-if="typers.length > 0" class="typers">
-				<I18n :src="i18n.ts.typingUsers" text-tag="span" class="users">
-					<template #users>
-						<b v-for="typer in typers" :key="typer.id" class="user">{{ typer.username }}</b>
-					</template>
-				</I18n>
-				<MkEllipsis/>
+		<div v-if="typers.length > 0" class="typers">
+			<I18n :src="i18n.ts.typingUsers" text-tag="span" class="users">
+				<template #users>
+					<b v-for="typer in typers" :key="typer.id" class="user">{{ typer.username }}</b>
+				</template>
+			</I18n>
+			<MkEllipsis/>
+		</div>
+		<transition :name="animation ? 'fade' : ''">
+			<div v-show="showIndicator" class="new-message">
+				<button class="_buttonPrimary" @click="onIndicatorClick"><i class="fas ti-fw fa-arrow-circle-down"></i>{{ i18n.ts.newMessageExists }}</button>
 			</div>
-			<transition :name="animation ? 'fade' : ''">
-				<div v-show="showIndicator" class="new-message">
-					<button class="_buttonPrimary" @click="onIndicatorClick"><i class="fas ti-fw fa-arrow-circle-down"></i>{{ i18n.ts.newMessageExists }}</button>
-				</div>
-			</transition>
-			<XForm v-if="!fetching" ref="formEl" :user="user" :group="group" class="form"/>
-		</footer>
+		</transition>
+		<XForm v-if="!fetching" ref="formEl" :user="user" :group="group" class="form"/>
+	</footer>
 </div>
 </template>
 
