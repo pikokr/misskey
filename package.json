@@ -53,15 +53,10 @@
 		"@typescript-eslint/eslint-plugin": "5.46.1",
 		"@typescript-eslint/parser": "5.46.1",
 		"cross-env": "7.0.3",
-		"cypress": "11.2.0",
-		"start-server-and-test": "1.14.0",
-		"typescript": "4.9.3",
-		"zx": "7.1.1"
-	},
-	"packageManager": "yarn@3.3.0"
 		"cypress": "12.1.0",
 		"eslint": "^8.30.0",
 		"start-server-and-test": "1.15.2",
-		"typescript": "4.9.4"
+		"typescript": "4.9.4",
+		"zx": "7.1.1"
 	}
 }

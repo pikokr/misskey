@@ -10,19 +10,18 @@ import '@/style.scss';
 import { set } from '@/scripts/idb-proxy';
 
 if (localStorage.getItem('accounts') != null) {
-	set('accounts', JSON.parse(localStorage.getItem('accounts')));
+	set('accounts', JSON.parse(localStorage.getItem('accounts')!));
 	localStorage.removeItem('accounts');
 }
 //#endregion
 
 import { computed, createApp, watch, markRaw, version as vueVersion, defineAsyncComponent } from 'vue';
-import { compareVersions } from 'compare-versions';
 import JSON5 from 'json5';
 
 import widgets from '@/widgets';
 import directives from '@/directives';
 import components from '@/components';
-import { version, ui, lang, host } from '@/config';
+import { version, ui, lang } from '@/config';
 import { applyTheme } from '@/scripts/theme';
 import { isDeviceDarkmode } from '@/scripts/is-device-darkmode';
 import { i18n } from '@/i18n';
@@ -128,7 +127,7 @@ import { getAccountFromId } from '@/scripts/get-account-from-id';
 		}
 
 		// 連携ログインの場合用にCookieを参照する
-		const i = (document.cookie.match(/igi=(\w+)/) || [null, null])[1];
+		const i = (document.cookie.match(/igi=(\w+)/) ?? [null, null])[1];
 
 		if (i != null && i !== 'null') {
 			if (_DEV_) {
