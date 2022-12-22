@@ -19,6 +19,8 @@ RUN yarn install --immutable
 
 COPY . ./
 
+RUN yarn zx patch-version.mjs
+
 RUN git submodule update --init
 RUN yarn build
 
