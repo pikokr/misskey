@@ -4,8 +4,8 @@
 		<div class="title"><slot name="header"></slot></div>
 		<div class="divider"></div>
 		<button class="_button">
-			<template v-if="showBody"><i class="fas fa-angle-up"></i></template>
-			<template v-else><i class="fas fa-angle-down"></i></template>
+			<template v-if="showBody"><i class="ti ti-chevron-up"></i></template>
+			<template v-else><i class="ti ti-chevron-down"></i></template>
 		</button>
 	</header>
 	<transition :name="$store.state.animation ? 'folder-toggle' : ''"
@@ -32,12 +32,12 @@ export default defineComponent({
 		expanded: {
 			type: Boolean,
 			required: false,
-			default: true
+			default: true,
 		},
 		persistKey: {
 			type: String,
 			required: false,
-			default: null
+			default: null,
 		},
 	},
 	data() {
@@ -51,7 +51,7 @@ export default defineComponent({
 			if (this.persistKey) {
 				localStorage.setItem(localStoragePrefix + this.persistKey, this.showBody ? 't' : 'f');
 			}
-		}
+		},
 	},
 	mounted() {
 		function getParentBg(el: Element | null): string {
@@ -91,7 +91,7 @@ export default defineComponent({
 		afterLeave(el) {
 			el.style.height = null;
 		},
-	}
+	},
 });
 </script>
 

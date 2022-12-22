@@ -1,9 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
 import type { UserGroupJoiningsRepository, UserGroupsRepository } from '@/models/index.js';
+import { awaitAll } from '@/misc/prelude/await-all.js';
 import type { Packed } from '@/misc/schema.js';
 import type { } from '@/models/entities/Blocking.js';
+import type { User } from '@/models/entities/User.js';
 import type { UserGroup } from '@/models/entities/UserGroup.js';
+import { UserEntityService } from './UserEntityService.js';
+import { bindThis } from '@/decorators.js';
 
 @Injectable()
 export class UserGroupEntityService {
@@ -14,10 +18,11 @@ export class UserGroupEntityService {
 		@Inject(DI.userGroupJoiningsRepository)
 		private userGroupJoiningsRepository: UserGroupJoiningsRepository,
 
-		// private userEntityService: UserEntityService,
+		private userEntityService: UserEntityService,
 	) {
 	}
 
+	@bindThis
 	public async pack(
 		src: UserGroup['id'] | UserGroup,
 	): Promise<Packed<'UserGroup'>> {

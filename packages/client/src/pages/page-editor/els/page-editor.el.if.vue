@@ -4,7 +4,7 @@
 	<template #header><i class="fas fa-question"></i> {{ $ts._pages.blocks.if }}</template>
 	<template #func>
 		<button class="_button" @click="add()">
-			<i class="fas fa-plus"></i>
+			<i class="ti ti-plus"></i>
 		</button>
 	</template>
 
@@ -42,8 +42,8 @@ const props = withDefaults(defineProps<{
 }>(), {
 	value: {
 		children: [],
-		var: null
-	}
+		var: null,
+	},
 });
 
 const getPageBlockList = inject<(any) => any>('getPageBlockList');
@@ -51,7 +51,7 @@ const getPageBlockList = inject<(any) => any>('getPageBlockList');
 async function add() {
 	const { canceled, result: type } = await os.select({
 		title: i18n.ts._pages.chooseBlock,
-		groupedItems: getPageBlockList()
+		groupedItems: getPageBlockList(),
 	});
 	if (canceled) return;
 

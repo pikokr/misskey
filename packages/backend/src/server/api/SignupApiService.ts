@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import rndstr from 'rndstr';
 import bcrypt from 'bcryptjs';
-import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { DI } from '@/di-symbols.js';
 import type { RegistrationTicketsRepository, UserPendingsRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
 import type { Config } from '@/config.js';
@@ -14,6 +13,8 @@ import { EmailService } from '@/core/EmailService.js';
 import { ILocalUser } from '@/models/entities/User.js';
 import { FastifyReplyError } from '@/misc/fastify-reply-error.js';
 import { SigninService } from './SigninService.js';
+import { bindThis } from '@/decorators.js';
+import type { FastifyRequest, FastifyReply } from 'fastify';
 
 @Injectable()
 export class SignupApiService {
@@ -43,6 +44,7 @@ export class SignupApiService {
 	) {
 	}
 
+	@bindThis
 	public async signup(
 		request: FastifyRequest<{
 			Body: {
@@ -165,6 +167,7 @@ export class SignupApiService {
 		}
 	}
 
+	@bindThis
 	public async signupPending(request: FastifyRequest<{ Body: { code: string; } }>, reply: FastifyReply) {
 		const body = request.body;
 

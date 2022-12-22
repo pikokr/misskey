@@ -1,5 +1,5 @@
 <!--
-## 12.x.x (unreleased)
+## 13.x.x (unreleased)
 
 ### Improvements
 
@@ -9,7 +9,7 @@
 You should also include the user name that made the change.
 -->
 
-## 12.x.x (unreleased)
+## 13.0.0 (unreleased)
 
 ### Changes
 - Node.js 18.x or later is required
@@ -20,11 +20,28 @@ You should also include the user name that made the change.
 	- You may have to `yarn run clean-all`, `sudo corepack enable` and `yarn set version berry` before running `yarn install` if you're still on yarn classic
 
 ### Improvements
+- Push notification of Antenna note @tamaina
+- AVIF support @tamaina
+- Add Cloudflare Turnstile CAPTCHA support @CyberRex0
+- Server: improve syslog performance @syuilo
+- Server: improve note scoring for featured notes @CyberRex0
+- Server: delete outdated notifications regularly to improve db performance @syuilo
+- Server: delete outdated hard-mutes regularly to improve db performance @syuilo
+- Server: delete outdated notes of antenna regularly to improve db performance @syuilo
+- Client: use tabler-icons instead of fontawesome to better design @syuilo
+- Client: Add new gabber kick sounds (thanks for noizenecio)
+- Client: Compress non-animated PNG files @saschanaz
+- Client: Youtube window player @sim1222
 
 ### Bugfixes
 - Server: 引用内の文章がnyaizeされてしまう問題を修正 @kabo2468
 - Server: Bug fix for Pinned Users lookup on instance @squidicuzz
-- Client: インスタンスティッカーのfaviconを読み込む際に偽サイト警告が出ることがあるのを修正 @syuilo
+- Server: Fix peers API returning suspended instances @ineffyble
+- Client: case insensitive emoji search @saschanaz
+- Client: InAppウィンドウが操作できなくなることがあるのを修正 @tamaina
+- Client: use proxied image for instance icon @syuilo
+- Client: Webhookの編集画面で、内容を保存することができない問題を修正 @m-hayabusa
+- Client: update emoji picker immediately on all input @saschanaz
 
 ## 12.119.1 (2022/12/03)
 ### Bugfixes

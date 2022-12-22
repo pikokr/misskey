@@ -4,10 +4,10 @@
 	<template #header><i class="fas fa-sticky-note"></i> {{ value.title }}</template>
 	<template #func>
 		<button class="_button" @click="rename()">
-			<i class="fas fa-pencil-alt"></i>
+			<i class="ti ti-pencil"></i>
 		</button>
 		<button class="_button" @click="add()">
-			<i class="fas fa-plus"></i>
+			<i class="ti ti-plus"></i>
 		</button>
 	</template>
 
@@ -33,8 +33,8 @@ const props = withDefaults(defineProps<{
 }>(), {
 	value: {
 		title: null,
-		children: []
-	}
+		children: [],
+	},
 });
 
 const getPageBlockList = inject<(any) => any>('getPageBlockList');
@@ -42,7 +42,7 @@ const getPageBlockList = inject<(any) => any>('getPageBlockList');
 async function rename() {
 	const { canceled, result: title } = await os.inputText({
 		title: 'Enter title',
-		default: props.value.title
+		default: props.value.title,
 	});
 	if (canceled) return;
 	props.value.title = title;
@@ -51,7 +51,7 @@ async function rename() {
 async function add() {
 	const { canceled, result: type } = await os.select({
 		title: i18n.ts._pages.chooseBlock,
-		groupedItems: getPageBlockList()
+		groupedItems: getPageBlockList(),
 	});
 	if (canceled) return;
 

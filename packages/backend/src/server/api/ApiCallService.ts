@@ -3,7 +3,6 @@ import { pipeline } from 'node:stream';
 import * as fs from 'node:fs';
 import { promisify } from 'node:util';
 import { Inject, Injectable } from '@nestjs/common';
-import { FastifyRequest, FastifyReply } from 'fastify';
 import { DI } from '@/di-symbols.js';
 import { getIpHash } from '@/misc/get-ip-hash.js';
 import type { CacheableLocalUser, ILocalUser, User } from '@/models/entities/User.js';
@@ -12,10 +11,12 @@ import type Logger from '@/logger.js';
 import type { UserIpsRepository } from '@/models/index.js';
 import { MetaService } from '@/core/MetaService.js';
 import { createTemp } from '@/misc/create-temp.js';
+import { bindThis } from '@/decorators.js';
 import { ApiError } from './error.js';
 import { RateLimiterService } from './RateLimiterService.js';
 import { ApiLoggerService } from './ApiLoggerService.js';
 import { AuthenticateService, AuthenticationError } from './AuthenticateService.js';
+import type { FastifyRequest, FastifyReply } from 'fastify';
 import type { OnApplicationShutdown } from '@nestjs/common';
 import type { IEndpointMeta, IEndpoint } from './endpoints.js';
 
@@ -50,23 +51,24 @@ export class ApiCallService implements OnApplicationShutdown {
 		}, 1000 * 60 * 60);
 	}
 
+	@bindThis
 	public handleRequest(
 		endpoint: IEndpoint & { exec: any },
-		request: FastifyRequest<{ Body: Record<string, unknown>, Querystring: Record<string, unknown> }>,
+		request: FastifyRequest<{ Body: Record<string, unknown> | undefined, Querystring: Record<string, unknown> }>,
 		reply: FastifyReply,
 	) {
 		const body = request.method === 'GET'
 			? request.query
 			: request.body;
 
-		const token = body['i'];
+		const token = body?.['i'];
 		if (token != null && typeof token !== 'string') {
 			reply.code(400);
 			return;
 		}
 		this.authenticateService.authenticate(token).then(([user, app]) => {
 			this.call(endpoint, user, app, body, null, request).then((res) => {
-				if (request.method === 'GET' && endpoint.meta.cacheSec && !body['i'] && !user) {
+				if (request.method === 'GET' && endpoint.meta.cacheSec && !body?.['i'] && !user) {
 					reply.header('Cache-Control', `public, max-age=${endpoint.meta.cacheSec}`);
 				}
 				this.send(reply, res);
@@ -90,6 +92,7 @@ export class ApiCallService implements OnApplicationShutdown {
 		});
 	}
 
+	@bindThis
 	public async handleMultipartRequest(
 		endpoint: IEndpoint & { exec: any },
 		request: FastifyRequest<{ Body: Record<string, unknown>, Querystring: Record<string, unknown> }>,
@@ -108,7 +111,7 @@ export class ApiCallService implements OnApplicationShutdown {
 		for (const [k, v] of Object.entries(multipartData.fields)) {
 			fields[k] = v.value;
 		}
-	
+
 		const token = fields['i'];
 		if (token != null && typeof token !== 'string') {
 			reply.code(400);
@@ -140,9 +143,11 @@ export class ApiCallService implements OnApplicationShutdown {
 		});
 	}
 
+	@bindThis
 	private send(reply: FastifyReply, x?: any, y?: ApiError) {
 		if (x == null) {
 			reply.code(204);
+			reply.send();
 		} else if (typeof x === 'number' && y) {
 			reply.code(x);
 			reply.send({
@@ -160,6 +165,7 @@ export class ApiCallService implements OnApplicationShutdown {
 		}
 	}
 
+	@bindThis
 	private async logIp(request: FastifyRequest, user: ILocalUser) {
 		const meta = await this.metaService.fetch();
 		if (!meta.enableIpLogging) return;
@@ -183,6 +189,7 @@ export class ApiCallService implements OnApplicationShutdown {
 		}
 	}
 
+	@bindThis
 	private async call(
 		ep: IEndpoint & { exec: any },
 		user: CacheableLocalUser | null | undefined,
@@ -192,7 +199,7 @@ export class ApiCallService implements OnApplicationShutdown {
 			name: string;
 			path: string;
 		} | null,
-		request: FastifyRequest<{ Body: Record<string, unknown>, Querystring: Record<string, unknown> }>,
+		request: FastifyRequest<{ Body: Record<string, unknown> | undefined, Querystring: Record<string, unknown> }>,
 	) {
 		const isSecure = user != null && token == null;
 		const isModerator = user != null && (user.isModerator || user.isAdmin);
@@ -315,6 +322,7 @@ export class ApiCallService implements OnApplicationShutdown {
 		});
 	}
 
+	@bindThis
 	public onApplicationShutdown(signal?: string | undefined) {
 		clearInterval(this.userIpHistoriesClearIntervalId);
 	}
