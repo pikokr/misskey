@@ -8,7 +8,7 @@ const fs = require('fs');
 		stderr: process.stderr,
 	});
 
-	await execa('yarn', ['build-pre'], {
+	await execa('yarn', ['run', 'prebuild'], {
 		cwd: __dirname + '/../',
 		stdout: process.stdout,
 		stderr: process.stderr,

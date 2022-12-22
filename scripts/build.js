@@ -1,6 +1,12 @@
 const execa = require('execa');
 
 (async () => {
+	await execa('yarn', ['run', 'prebuild'], {
+		cwd: __dirname + '/../',
+		stdout: process.stdout,
+		stderr: process.stderr,
+	});
+
 	console.log('building packages/backend ...');
 
 	await execa('yarn', ['run', 'build'], {

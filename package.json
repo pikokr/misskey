@@ -12,6 +12,7 @@
 	],
 	"private": true,
 	"scripts": {
+		"prebuild": "node ./scripts/build-pre.js",
 		"build": "node ./scripts/build.js",
 		"start": "cd packages/backend && node ./built/boot/index.js",
 		"start:test": "cd packages/backend && cross-env NODE_ENV=test node ./built/boot/index.js",
