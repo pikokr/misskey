@@ -2,6 +2,8 @@ FROM node:18.12.1-bullseye AS builder
 
 ARG NODE_ENV=production
 
+ENV DOCKER=true
+
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	build-essential
