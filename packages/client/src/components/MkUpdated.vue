@@ -21,7 +21,7 @@ const modal = ref<InstanceType<typeof MkModal>>();
 
 const whatIsNew = (): void => {
 	modal.value?.close();
-	window.open('https://about.pikokr.dev/misskey/patchnote', '_blank');
+	window.open('https://ppap.dev/tag/misskey', '_blank');
 };
 </script>
 
