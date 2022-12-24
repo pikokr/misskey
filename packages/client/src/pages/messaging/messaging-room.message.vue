@@ -173,7 +173,6 @@ function del(): void {
 					overflow-wrap: break-word;
 					word-break: break-word;
 					font-size: 1em;
-					color: rgba(#000, 0.8);
 
 					& + .file {
 						> a {
@@ -224,7 +223,7 @@ function del(): void {
 			font-size: 0.65em;
 
 			> .read {
-				margin: 0 8px;
+				margin-right: 8px;
 			}
 
 			> i {
