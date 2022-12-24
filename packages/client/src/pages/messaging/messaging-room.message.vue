@@ -10,12 +10,12 @@
 				<div class="handle">
 					@{{ message.user.username }}
 				</div>
+				<button v-if="isMe" class="delete-button" :title="$ts.delete" @click="del">
+					<img src="/client-assets/remove.png" alt="Delete"/>
+				</button>
 			</div>
 		</div>
 		<div class="balloon" :class="{ noText: message.text == null }">
-			<button v-if="isMe" class="delete-button" :title="$ts.delete" @click="del">
-				<img src="/client-assets/remove.png" alt="Delete"/>
-			</button>
 			<div v-if="!message.isDeleted" class="content">
 				<Mfm v-if="message.text" ref="text" class="text" :text="message.text" :i="$i"/>
 				<div v-if="message.file" class="file">
@@ -88,54 +88,13 @@ function del(): void {
 			.handle {
 				opacity: .75;
 			}
-		}
-	}
-
-	> .avatar {
-		position: sticky;
-		top: calc(var(--stickyTop, 0px) + 16px);
-		display: block;
-		width: 54px;
-		height: 54px;
-		transition: all 0.1s ease;
-	}
-
-	> .content {
-		min-width: 0;
-		padding-left: 12px;
-
-		> .balloon {
-			position: relative;
-			display: inline-flex;
-			align-items: center;
-			padding: 0;
-			border-radius: 16px;
-			max-width: 100%;
-
-			&:before {
-				content: "";
-				pointer-events: none;
-				display: block;
-				position: absolute;
-				top: 12px;
-			}
-
-			& + * {
-				clear: both;
-			}
-
-			&:hover {
-				> .delete-button {
-					display: block;
-				}
-			}
 
 			> .delete-button {
 				display: none;
 				position: absolute;
 				z-index: 1;
-				top: -4px;
-				right: -4px;
+				top: 12px;
+				right: 12px;
 				margin: 0;
 				padding: 0;
 				cursor: pointer;
@@ -151,6 +110,48 @@ function del(): void {
 					height: 16px;
 					cursor: pointer;
 				}
+			}
+		}
+	}
+
+	&:hover {
+		.user-profile-area .delete-button {
+			display: block;
+		}
+	}
+
+	> .avatar {
+		position: sticky;
+		top: calc(var(--stickyTop, 0px) + 16px);
+		display: block;
+		width: 54px;
+		height: 54px;
+		transition: all 0.1s ease;
+	}
+
+	> .content {
+		min-width: 0;
+		padding-left: 12px;
+		flex-grow: 1;
+		width: 0;
+
+		> .balloon {
+			position: relative;
+			display: inline-flex;
+			align-items: center;
+			padding: 0;
+			width: 100%;
+
+			&:before {
+				content: "";
+				pointer-events: none;
+				display: block;
+				position: absolute;
+				top: 12px;
+			}
+
+			& + * {
+				clear: both;
 			}
 
 			> .content {
