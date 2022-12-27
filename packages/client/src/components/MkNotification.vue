@@ -8,7 +8,7 @@
 			<i v-if="notification.type === 'follow'" class="ti ti-plus"></i>
 			<i v-else-if="notification.type === 'receiveFollowRequest'" class="ti ti-clock"></i>
 			<i v-else-if="notification.type === 'followRequestAccepted'" class="ti ti-check"></i>
-			<i v-else-if="notification.type === 'groupInvited'" class="fas fa-id-card-alt"></i>
+			<i v-else-if="notification.type === 'groupInvited'" class="ti ti-certificate-2"></i>
 			<i v-else-if="notification.type === 'renote'" class="ti ti-repeat"></i>
 			<i v-else-if="notification.type === 'reply'" class="ti ti-arrow-back-up"></i>
 			<i v-else-if="notification.type === 'mention'" class="ti ti-at"></i>
@@ -304,6 +304,20 @@ useTooltip(reactionRef, (showing) => {
 				margin-left: 4px;
 			}
 		}
+	}
+}
+
+@container (max-width: 600px) {
+	.qglefbjs {
+		padding: 16px;
+		font-size: 0.9em;
+	}
+}
+
+@container (max-width: 500px) {
+	.qglefbjs {
+		padding: 12px;
+		font-size: 0.85em;
 	}
 }
 </style>
