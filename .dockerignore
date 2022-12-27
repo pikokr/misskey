@@ -22,3 +22,4 @@ fluent-emojis/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+!.yarn/cache
