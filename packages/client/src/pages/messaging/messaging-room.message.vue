@@ -281,18 +281,4 @@ function del(): void {
 		}
 	}
 }
-
-@container (max-width: 500px) {
-	.thvuemwp {
-		> .content {
-			> .balloon {
-				> .content {
-					> .text {
-						padding: 8px 16px;
-					}
-				}
-			}
-		}
-	}
-}
 </style>
