@@ -35,6 +35,5 @@ jobs:
       - name: Send update signal to kubernetes
         run: bash ./deploy/update.sh
         env:
-          KUBE_CA: ${{ secrets.KUBE_CA }}
           API_ENDPOINT: ${{ secrets.KUBE_API_ENDPOINT }}
           API_TOKEN: ${{ secrets.KUBE_API_TOKEN }}
