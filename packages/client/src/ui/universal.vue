@@ -379,7 +379,7 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 }
 
 .spacer {
-	$widgets-hide-threshold: 1090px;
+	$widgets-hide-threshold: 500px;
 
 	height: calc(env(safe-area-inset-bottom, 0px) + 96px);
 

@@ -311,9 +311,12 @@ definePageMetadata(computed(() => !fetching ? user ? {
 		width: 100%;
 		position: sticky;
 		z-index: 2;
-		bottom: 0;
 		padding-top: 8px;
 		bottom: env(safe-area-inset-bottom, 0px);
+
+		@media (max-width: 500px) {
+			bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+		}
 
 		> .new-message {
 			width: 100%;
