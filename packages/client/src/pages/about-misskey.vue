@@ -34,12 +34,20 @@
 							{{ i18n.ts._aboutMisskey.donate }}
 							<template #suffix>Patreon</template>
 						</FormLink>
+						<FormLink to="https://toss.me/pikokr" external>
+							<template #icon><i class="ti ti-pig-money"></i></template>
+							파링에게 기부하기
+							<template #suffix>Toss</template>
+						</FormLink>
 					</div>
 				</FormSection>
 				<FormSection>
 					<template #label>{{ i18n.ts._aboutMisskey.contributors }}</template>
 					<div class="_formLinks">
 						<FormLink to="https://github.com/syuilo" external>@syuilo</FormLink>
+						<FormLink to="https://github.com/pikokr" external>@pikokr
+							<template #suffix>Fork</template>
+						</FormLink>
 						<FormLink to="https://github.com/AyaMorisawa" external>@AyaMorisawa</FormLink>
 						<FormLink to="https://github.com/mei23" external>@mei23</FormLink>
 						<FormLink to="https://github.com/acid-chicken" external>@acid-chicken</FormLink>
