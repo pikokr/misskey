@@ -262,4 +262,23 @@ function del(): void {
 		}
 	}
 }
+
+@container (max-width: 400px) {
+	.thvuemwp {
+		> .avatar {
+			width: 48px;
+			height: 48px;
+		}
+
+		> .content {
+			> .balloon {
+				> .content {
+					> .text {
+						font-size: 0.9em;
+					}
+				}
+			}
+		}
+	}
+}
 </style>

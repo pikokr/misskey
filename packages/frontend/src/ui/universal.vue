@@ -220,7 +220,7 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 	$ui-font-size: 1em; // TODO: どこかに集約したい
 	$widgets-hide-threshold: 1090px;
 
-	min-height: 100dvh;
+	min-height: calc(var(--vh, 1vh) * 100);
 	box-sizing: border-box;
 	display: flex;
 
@@ -272,8 +272,8 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 		top: 0;
 		right: 0;
 		z-index: 1001;
-		height: 100dvh;
-		padding: var(--margin) !important;
+		height: calc(var(--vh, 1vh) * 100);
+		padding: var(--margin);
 		box-sizing: border-box;
 		overflow: auto;
 		overscroll-behavior: contain;
@@ -360,7 +360,7 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 		top: 0;
 		left: 0;
 		z-index: 1001;
-		height: 100dvh;
+		height: calc(var(--vh, 1vh) * 100);
 		width: 240px;
 		box-sizing: border-box;
 		contain: strict;
@@ -379,7 +379,7 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 }
 
 .spacer {
-	$widgets-hide-threshold: 1090px;
+	$widgets-hide-threshold: 500px;
 
 	height: calc(env(safe-area-inset-bottom, 0px) + 96px);
 
