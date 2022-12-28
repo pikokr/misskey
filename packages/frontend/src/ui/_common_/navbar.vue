@@ -273,7 +273,6 @@ function more(ev: MouseEvent) {
 					align-items: center;
 					padding-left: 30px;
 					text-overflow: ellipsis;
-					overflow: hidden;
 					white-space: nowrap;
 					width: 100%;
 					text-align: left;
