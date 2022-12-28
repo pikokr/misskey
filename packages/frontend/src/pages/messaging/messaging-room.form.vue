@@ -38,7 +38,7 @@ import * as os from '@/os';
 import { stream } from '@/stream';
 import { defaultStore } from '@/store';
 import { i18n } from '@/i18n';
-//import { Autocomplete } from '@/scripts/autocomplete';
+import { Autocomplete } from '@/scripts/autocomplete';
 import { uploadFile } from '@/scripts/upload';
 
 const props = defineProps<{
@@ -219,7 +219,7 @@ onMounted(() => {
 
 	// TODO: detach when unmount
 	// TODO
-	//new Autocomplete(textEl, this, { model: 'text' });
+	new Autocomplete(textEl, $$(text));
 
 	// 書きかけの投稿を復元
 	const draft = JSON.parse(localStorage.getItem('message_drafts') || '{}')[draftKey];
