@@ -100,7 +100,7 @@ async function fetch() {
 		const acct = Acct.parse(props.userAcct);
 		user = await os.api('users/show', { username: acct.username, host: acct.host || undefined });
 		group = null;
-		
+
 		pagination = {
 			endpoint: 'messaging/messages',
 			limit: 20,
@@ -158,9 +158,9 @@ function onDragover(ev: DragEvent) {
 		switch (ev.dataTransfer.effectAllowed) {
 			case 'all':
 			case 'uninitialized':
-			case 'copy': 
-			case 'copyLink': 
-			case 'copyMove': 
+			case 'copy':
+			case 'copyLink':
+			case 'copyMove':
 				ev.dataTransfer.dropEffect = 'copy';
 				break;
 			case 'linkMove':
@@ -311,12 +311,9 @@ definePageMetadata(computed(() => !fetching ? user ? {
 		width: 100%;
 		position: sticky;
 		z-index: 2;
+		bottom: 0;
 		padding-top: 8px;
 		bottom: env(safe-area-inset-bottom, 0px);
-
-		@media (max-width: 500px) {
-			bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
-		}
 
 		> .new-message {
 			width: 100%;
