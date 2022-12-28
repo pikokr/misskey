@@ -26,8 +26,8 @@ const fs = require('fs');
 		stderr: process.stderr,
 	});
 
-	execa('yarn', ['run', 'watch'], {
-		cwd: __dirname + '/../packages/client',
+	execa('yarn', ['workspace', 'frontend', 'watch'], {
+		cwd: __dirname + '/../',
 		stdout: process.stdout,
 		stderr: process.stderr,
 	});

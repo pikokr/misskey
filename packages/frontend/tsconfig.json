@@ -18,7 +18,9 @@
 		"strictNullChecks": true,
 		"experimentalDecorators": true,
 		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
 		"isolatedModules": true,
+		"useDefineForClassFields": true,
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"],
@@ -27,13 +29,19 @@
 			"node_modules/@types",
 			"@types",
 		],
+		"types": [
+			"vite/client",
+		],
 		"lib": [
 			"esnext",
-			"webworker"
-		]
+			"dom"
+		],
+		"jsx": "preserve"
 	},
 	"compileOnSave": false,
 	"include": [
-		"./**/*.ts"
+		".eslintrc.js",
+		"./**/*.ts",
+		"./**/*.vue"
 	]
 }
