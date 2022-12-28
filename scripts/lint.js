@@ -8,9 +8,9 @@ const execa = require('execa');
 		stderr: process.stderr,
 	});
 
-	console.log('linting packages/client ...');
+	console.log('linting packages/frontend ...');
 	await execa('yarn', ['run', 'lint'], {
-		cwd: __dirname + '/../packages/client',
+		cwd: __dirname + '/../packages/frontend',
 		stdout: process.stdout,
 		stderr: process.stderr,
 	});

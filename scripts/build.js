@@ -15,10 +15,10 @@ const execa = require('execa');
 		stderr: process.stderr,
 	});
 
-	console.log('building packages/client ...');
+	console.log('building packages/frontend ...');
 
 	await execa('yarn', ['run', 'build'], {
-		cwd: __dirname + '/../packages/client',
+		cwd: __dirname + '/../packages/frontend',
 		stdout: process.stdout,
 		stderr: process.stderr,
 	});
