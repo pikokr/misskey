@@ -7,27 +7,38 @@
 	<iframe ref="tweet" scrolling="no" frameborder="no" :style="{ position: 'relative', width: '100%', height: `${tweetHeight}px` }" :src="`https://platform.twitter.com/embed/index.html?embedId=${embedId}&amp;hideCard=false&amp;hideThread=false&amp;lang=en&amp;theme=${$store.state.darkMode ? 'dark' : 'light'}&amp;id=${tweetId}`"></iframe>
 </div>
 <div v-else class="mk-url-preview">
-	<transition :name="$store.state.animation ? 'zoom' : ''" mode="out-in">
-		<component :is="self ? 'MkA' : 'a'" v-if="!fetching" class="link" :class="{ compact }" :[attr]="self ? url.substr(local.length) : url" rel="nofollow noopener" :target="target" :title="url">
-			<div v-if="thumbnail" class="thumbnail" :style="`background-image: url('${thumbnail}')`">
-				<button v-if="!playerEnabled && player.url" class="_button" :title="i18n.ts.enablePlayer" @click.prevent="isMobile? playerEnabled = true : openPlayer()"><i class="ti ti-player-play"></i></button>
-			</div>
-			<article>
-				<header>
-					<h1 :title="title">{{ title }}</h1>
-				</header>
-				<p v-if="description" :title="description">{{ description.length > 85 ? description.slice(0, 85) + '…' : description }}</p>
-				<footer>
-					<img v-if="icon" class="icon" :src="icon"/>
-					<p :title="sitename">{{ sitename }}</p>
-				</footer>
-			</article>
-		</component>
-	</transition>
-	<div v-if="tweetId" class="expandTweet">
-		<a @click="tweetExpanded = true">
+	<component :is="self ? 'MkA' : 'a'" class="link" :class="{ compact }" :[attr]="self ? url.substr(local.length) : url" rel="nofollow noopener" :target="target" :title="url">
+		<div v-if="thumbnail" class="thumbnail" :style="`background-image: url('${thumbnail}')`">
+		</div>
+		<article>
+			<header>
+				<h1 v-if="unknownUrl">{{ url }}</h1>
+				<h1 v-else-if="fetching"><MkEllipsis/></h1>
+				<h1 v-else :title="title">{{ title }}</h1>
+			</header>
+			<p v-if="unknownUrl">{{ i18n.ts.cannotLoad }}</p>
+			<p v-else-if="fetching"><MkEllipsis/></p>
+			<p v-else-if="description" :title="description">{{ description.length > 85 ? description.slice(0, 85) + '…' : description }}</p>
+			<footer>
+				<img v-if="icon" class="icon" :src="icon"/>
+				<p v-if="unknownUrl">?</p>
+				<p v-else-if="fetching"><MkEllipsis/></p>
+				<p v-else :title="sitename">{{ sitename }}</p>
+			</footer>
+		</article>
+	</component>
+	<div v-if="tweetId" class="action">
+		<MkButton :small="true" inline @click="tweetExpanded = true">
 			<i class="ti ti-brand-twitter"></i> {{ i18n.ts.expandTweet }}
-		</a>
+		</MkButton>
+	</div>
+	<div v-if="!playerEnabled && player.url" class="action">
+		<MkButton :small="true" inline @click="playerEnabled = true">
+			<i class="ti ti-player-play"></i> {{ i18n.ts.enablePlayer }}
+		</MkButton>
+		<MkButton v-if="!isMobile" :small="true" inline @click="openPlayer()">
+			<i class="ti ti-picture-in-picture"></i> {{ i18n.ts.openInWindow }}
+		</MkButton>
 	</div>
 </div>
 </template>
@@ -38,6 +49,7 @@ import { url as local, lang } from '@/config';
 import { i18n } from '@/i18n';
 import * as os from '@/os';
 import { deviceKind } from '@/scripts/device-kind';
+import MkButton from '@/components/MkButton.vue';
 
 const props = withDefaults(defineProps<{
 	url: string;
@@ -70,6 +82,7 @@ let tweetId = $ref<string | null>(null);
 let tweetExpanded = $ref(props.detail);
 const embedId = `embed${Math.random().toString().replace(/\D/, '')}`;
 let tweetHeight = $ref(150);
+let unknownUrl = $ref(false);
 
 const requestUrl = new URL(props.url);
 
@@ -88,7 +101,10 @@ requestUrl.hash = '';
 
 window.fetch(`/url?url=${encodeURIComponent(requestUrl.href)}&lang=${requestLang}`).then(res => {
 	res.json().then(info => {
-		if (info.url == null) return;
+		if (info.url == null) {
+			unknownUrl = true;
+			return;
+		}
 		title = info.title;
 		description = info.description;
 		thumbnail = info.thumbnail;
@@ -181,16 +197,6 @@ onUnmounted(() => {
 			justify-content: center;
 			align-items: center;
 
-			> button {
-				font-size: 3.5em;
-				opacity: 0.7;
-
-				&:hover {
-					font-size: 4em;
-					opacity: 0.9;
-				}
-			}
-
 			& + article {
 				left: 100px;
 				width: calc(100% - 100px);
@@ -248,6 +254,13 @@ onUnmounted(() => {
 				}
 			}
 		}
+	}
+
+	> .action {
+		display: flex;
+		gap: 6px;
+		flex-wrap: wrap;
+		margin-top: 6px;
 	}
 }
 

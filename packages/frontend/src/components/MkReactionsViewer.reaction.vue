@@ -1,13 +1,12 @@
 <template>
 <button
-	v-if="count > 0"
 	ref="buttonRef"
 	v-ripple="canToggle"
 	class="hkzvhatu _button"
 	:class="{ reacted: note.myReaction == reaction, canToggle }"
 	@click="toggleReaction()"
 >
-	<XReactionIcon class="icon" :reaction="reaction" :custom-emojis="note.emojis"/>
+	<XReactionIcon class="icon" :reaction="reaction"/>
 	<span class="count">{{ count }}</span>
 </button>
 </template>
