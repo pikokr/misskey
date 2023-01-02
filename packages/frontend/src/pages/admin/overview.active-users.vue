@@ -9,23 +9,7 @@
 
 <script lang="ts" setup>
 import { markRaw, version as vueVersion, onMounted, onBeforeUnmount, nextTick } from 'vue';
-import {
-	Chart,
-	ArcElement,
-	LineElement,
-	BarElement,
-	PointElement,
-	BarController,
-	LineController,
-	CategoryScale,
-	LinearScale,
-	TimeScale,
-	Legend,
-	Title,
-	Tooltip,
-	SubTitle,
-	Filler,
-} from 'chart.js';
+import { Chart } from 'chart.js';
 import { enUS } from 'date-fns/locale';
 import tinycolor from 'tinycolor2';
 import * as os from '@/os';
@@ -35,24 +19,9 @@ import { useChartTooltip } from '@/scripts/use-chart-tooltip';
 import gradient from 'chartjs-plugin-gradient';
 import { chartVLine } from '@/scripts/chart-vline';
 import { alpha } from '@/scripts/color';
+import { initChart } from '@/scripts/init-chart';
 
-Chart.register(
-	ArcElement,
-	LineElement,
-	BarElement,
-	PointElement,
-	BarController,
-	LineController,
-	CategoryScale,
-	LinearScale,
-	TimeScale,
-	Legend,
-	Title,
-	Tooltip,
-	SubTitle,
-	Filler,
-	gradient,
-);
+initChart();
 
 const chartEl = $ref<HTMLCanvasElement>(null);
 const now = new Date();
