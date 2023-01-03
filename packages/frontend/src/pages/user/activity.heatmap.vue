@@ -9,32 +9,11 @@
 
 <script lang="ts" setup>
 import { markRaw, version as vueVersion, onMounted, onBeforeUnmount, nextTick, watch } from 'vue';
-<<<<<<<< HEAD:packages/frontend/src/components/MkHeatmap.vue
-import {
-	Chart,
-	ArcElement,
-	LineElement,
-	BarElement,
-	PointElement,
-	BarController,
-	LineController,
-	CategoryScale,
-	LinearScale,
-	TimeScale,
-	Legend,
-	Title,
-	Tooltip,
-	SubTitle,
-	Filler,
-} from 'chart.js';
-========
 import { Chart } from 'chart.js';
->>>>>>>> f4b012b7b606e8cfe707abac518947aa23648332:packages/frontend/src/pages/user/activity.heatmap.vue
 import { enUS } from 'date-fns/locale';
 import tinycolor from 'tinycolor2';
 import * as misskey from 'misskey-js';
 import * as os from '@/os';
-import 'chartjs-adapter-date-fns';
 import { defaultStore } from '@/store';
 import { useChartTooltip } from '@/scripts/use-chart-tooltip';
 import { chartVLine } from '@/scripts/chart-vline';
@@ -48,12 +27,8 @@ const props = defineProps<{
 	user: misskey.entities.User;
 }>();
 
-const props = defineProps<{
-	src: string;
-}>();
-
-const rootEl = $ref<HTMLDivElement>(null);
-const chartEl = $ref<HTMLCanvasElement>(null);
+const rootEl = $shallowRef<HTMLDivElement>(null);
+const chartEl = $shallowRef<HTMLCanvasElement>(null);
 const now = new Date();
 let chartInstance: Chart = null;
 let fetching = $ref(true);
@@ -96,37 +71,14 @@ async function renderChart() {
 
 	let values;
 
-<<<<<<<< HEAD:packages/frontend/src/components/MkHeatmap.vue
-	if (props.src === 'active-users') {
-		const raw = await os.api('charts/active-users', { limit: chartLimit, span: 'day' });
-		values = raw.readWrite;
-	} else if (props.src === 'notes') {
-		const raw = await os.api('charts/notes', { limit: chartLimit, span: 'day' });
-		values = raw.local.inc;
-	} else if (props.src === 'ap-requests-inbox-received') {
-		const raw = await os.api('charts/ap-request', { limit: chartLimit, span: 'day' });
-		values = raw.inboxReceived;
-	} else if (props.src === 'ap-requests-deliver-succeeded') {
-		const raw = await os.api('charts/ap-request', { limit: chartLimit, span: 'day' });
-		values = raw.deliverSucceeded;
-	} else if (props.src === 'ap-requests-deliver-failed') {
-		const raw = await os.api('charts/ap-request', { limit: chartLimit, span: 'day' });
-		values = raw.deliverFailed;
-========
 	if (props.src === 'notes') {
 		const raw = await os.api('charts/user/notes', { userId: props.user.id, limit: chartLimit, span: 'day' });
 		values = raw.inc;
->>>>>>>> f4b012b7b606e8cfe707abac518947aa23648332:packages/frontend/src/pages/user/activity.heatmap.vue
 	}
 
 	fetching = false;
 
 	await nextTick();
-
-	const gridColor = defaultStore.state.darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-
-	// フォントカラー
-	Chart.defaults.color = getComputedStyle(document.documentElement).getPropertyValue('--fg');
 
 	const color = defaultStore.state.darkMode ? '#b4e900' : '#86b300';
 
@@ -141,11 +93,7 @@ async function renderChart() {
 		type: 'matrix',
 		data: {
 			datasets: [{
-<<<<<<<< HEAD:packages/frontend/src/components/MkHeatmap.vue
-				label: 'Read & Write',
-========
 				label: '',
->>>>>>>> f4b012b7b606e8cfe707abac518947aa23648332:packages/frontend/src/pages/user/activity.heatmap.vue
 				data: format(values),
 				pointRadius: 0,
 				borderWidth: 0,
@@ -195,8 +143,6 @@ async function renderChart() {
 					},
 					grid: {
 						display: false,
-						color: gridColor,
-						borderColor: 'rgb(0, 0, 0, 0)',
 					},
 					ticks: {
 						display: true,
@@ -210,8 +156,6 @@ async function renderChart() {
 					position: 'right',
 					grid: {
 						display: false,
-						color: gridColor,
-						borderColor: 'rgb(0, 0, 0, 0)',
 					},
 					ticks: {
 						maxRotation: 0,
@@ -224,7 +168,6 @@ async function renderChart() {
 					},
 				},
 			},
-			animation: false,
 			plugins: {
 				legend: {
 					display: false,

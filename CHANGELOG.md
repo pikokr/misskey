@@ -41,6 +41,7 @@ You should also include the user name that made the change.
 - Server: delete outdated notifications regularly to improve db performance @syuilo
 - Server: delete outdated hard-mutes regularly to improve db performance @syuilo
 - Server: delete outdated notes of antenna regularly to improve db performance @syuilo
+- Server: improve activitypub deliver performance @syuilo
 - Client: use tabler-icons instead of fontawesome to better design @syuilo
 - Client: Add new gabber kick sounds (thanks for noizenecio)
 - Client: Add link to user RSS feed in profile menu @ssmucny
@@ -74,6 +75,7 @@ You should also include the user name that made the change.
 - Client: Webhookの編集画面で、内容を保存することができない問題を修正 @m-hayabusa
 - Client: update emoji picker immediately on all input @saschanaz
 - Client: チャートのツールチップが画面に残ることがあるのを修正 @syuilo
+- Client: fix wrong link in tutorial @syuilo
 
 ## 12.119.1 (2022/12/03)
 ### Bugfixes
