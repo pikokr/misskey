@@ -1,5 +1,5 @@
 <template>
-<MkWindow :initial-width="640" :initial-height="402" :can-resize="true" :close-button="true">
+<XWindow :initial-width="640" :initial-height="402" :can-resize="true" :close-button="true">
 	<template #header>
 		<i class="icon ti ti-brand-youtube" style="margin-right: 0.5em;"></i>
 		<span>{{ title ?? 'YouTube' }}</span>
@@ -14,11 +14,11 @@
 		<MkLoading v-if="fetching"/>
 		<MkError v-else-if="!player.url" @retry="ytFetch()"/>
 	</div>
-</MkWindow>
+</XWindow>
 </template>
 
 <script lang="ts" setup>
-import MkWindow from '@/components/MkWindow.vue';
+import XWindow from '@/components/MkWindow.vue';
 import { versatileLang } from '@/scripts/intl-const';
 
 const props = defineProps<{

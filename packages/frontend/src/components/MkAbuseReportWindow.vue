@@ -1,5 +1,5 @@
 <template>
-<MkWindow ref="uiWindow" :initial-width="400" :initial-height="500" :can-resize="true" @closed="emit('closed')">
+<XWindow ref="uiWindow" :initial-width="400" :initial-height="500" :can-resize="true" @closed="emit('closed')">
 	<template #header>
 		<i class="ti ti-exclamation-circle" style="margin-right: 0.5em;"></i>
 		<I18n :src="i18n.ts.reportAbuseOf" tag="span">
@@ -8,6 +8,7 @@
 			</template>
 		</I18n>
 	</template>
+<<<<<<< HEAD
 	<MkSpacer :margin-min="20" :margin-max="28">
 		<div class="dpvffvvy _gaps_m">
 			<div class="">
@@ -19,15 +20,26 @@
 			<div class="">
 				<MkButton primary full :disabled="comment.length === 0" @click="send">{{ i18n.ts.send }}</MkButton>
 			</div>
+=======
+	<div class="dpvffvvy _autoGap">
+		<div class="">
+			<MkTextarea v-model="comment">
+				<template #label>{{ i18n.ts.details }}</template>
+				<template #caption>{{ i18n.ts.fillAbuseReportDescription }}</template>
+			</MkTextarea>
+>>>>>>> parent of d25f214a0 (:art:)
 		</div>
-	</MkSpacer>
-</MkWindow>
+		<div class="">
+			<MkButton primary full :disabled="comment.length === 0" @click="send">{{ i18n.ts.send }}</MkButton>
+		</div>
+	</div>
+</XWindow>
 </template>
 
 <script setup lang="ts">
 import { ref, shallowRef } from 'vue';
 import * as Misskey from 'misskey-js';
-import MkWindow from '@/components/MkWindow.vue';
+import XWindow from '@/components/MkWindow.vue';
 import MkTextarea from '@/components/form/textarea.vue';
 import MkButton from '@/components/MkButton.vue';
 import * as os from '@/os';
@@ -42,7 +54,7 @@ const emit = defineEmits<{
 	(ev: 'closed'): void;
 }>();
 
-const uiWindow = shallowRef<InstanceType<typeof MkWindow>>();
+const uiWindow = shallowRef<InstanceType<typeof XWindow>>();
 const comment = ref(props.initialComment || '');
 
 function send() {
