@@ -1,11 +1,11 @@
 <template>
 <div
 	ref="rootEl"
-	class="_section mk-messaging-room-container"
+	class=""
 	@dragover.prevent.stop="onDragover"
 	@drop.prevent.stop="onDrop"
 >
-	<div class="_content mk-messaging-room">
+	<div class="mk-messaging-room">
 		<div class="body">
 			<MkPagination v-if="pagination" ref="pagingComponent" :key="userAcct || groupId" :pagination="pagination">
 				<template #empty>
@@ -19,7 +19,6 @@
 					<XList
 						v-if="messages.length > 0"
 						v-slot="{ item: message }"
-						no-gap
 						:class="{ messages: true, 'deny-move-transition': pFetching }"
 						:items="messages"
 						direction="up"
@@ -30,23 +29,23 @@
 				</template>
 			</MkPagination>
 		</div>
-	</div>
-	<footer>
-		<div v-if="typers.length > 0" class="typers">
-			<I18n :src="i18n.ts.typingUsers" text-tag="span" class="users">
-				<template #users>
-					<b v-for="typer in typers" :key="typer.id" class="user">{{ typer.username }}</b>
-				</template>
-			</I18n>
-			<MkEllipsis/>
-		</div>
-		<Transition :name="animation ? 'fade' : ''">
-			<div v-show="showIndicator" class="new-message">
-				<button class="_buttonPrimary" @click="onIndicatorClick"><i class="fas ti-fw fa-arrow-circle-down"></i>{{ i18n.ts.newMessageExists }}</button>
+		<footer>
+			<div v-if="typers.length > 0" class="typers">
+				<I18n :src="i18n.ts.typingUsers" text-tag="span" class="users">
+					<template #users>
+						<b v-for="typer in typers" :key="typer.id" class="user">{{ typer.username }}</b>
+					</template>
+				</I18n>
+				<MkEllipsis/>
 			</div>
-		</Transition>
-		<XForm v-if="!fetching" ref="formEl" :user="user" :group="group" class="form"/>
-	</footer>
+			<Transition :name="animation ? 'fade' : ''">
+				<div v-show="showIndicator" class="new-message">
+					<button class="_buttonPrimary" @click="onIndicatorClick"><i class="fas ti-fw fa-arrow-circle-down"></i>{{ i18n.ts.newMessageExists }}</button>
+				</div>
+			</Transition>
+			<XForm v-if="!fetching" ref="formEl" :user="user" :group="group" class="form"/>
+		</footer>
+	</div>
 </div>
 </template>
 
@@ -100,7 +99,7 @@ async function fetch() {
 		const acct = Acct.parse(props.userAcct);
 		user = await os.api('users/show', { username: acct.username, host: acct.host || undefined });
 		group = null;
-
+		
 		pagination = {
 			endpoint: 'messaging/messages',
 			limit: 20,
@@ -306,17 +305,53 @@ definePageMetadata(computed(() => !fetching ? user ? {
 </script>
 
 <style lang="scss" scoped>
-.mk-messaging-room-container {
+.mk-messaging-room {
+	position: relative;
+	overflow: auto;
+
+	> .body {
+		.more {
+			display: block;
+			margin: 16px auto;
+			padding: 0 12px;
+			line-height: 24px;
+			color: #fff;
+			background: rgba(#000, 0.3);
+			border-radius: 12px;
+
+			&:hover {
+				background: rgba(#000, 0.4);
+			}
+
+			&:active {
+				background: rgba(#000, 0.5);
+			}
+
+			&.fetching {
+				cursor: wait;
+			}
+
+			> i {
+				margin-right: 4px;
+			}
+		}
+
+		.messages {
+			padding: 8px 0;
+
+			> ::v-deep(*) {
+				margin-bottom: 16px;
+			}
+		}
+	}
+
 	> footer {
 		width: 100%;
 		position: sticky;
 		z-index: 2;
+		bottom: 0;
 		padding-top: 8px;
-		bottom: env(safe-area-inset-bottom, 0px);
-
-		@media (max-width: 500px) {
-			bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
-		}
+		bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
 
 		> .new-message {
 			width: 100%;
@@ -361,47 +396,6 @@ definePageMetadata(computed(() => !fetching ? user ? {
 			max-height: 12em;
 			overflow-y: scroll;
 			border-top: solid 0.5px var(--divider);
-		}
-	}
-}
-
-.mk-messaging-room {
-	position: relative;
-	overflow: auto;
-
-	> .body {
-		.more {
-			display: block;
-			margin: 16px auto;
-			padding: 0 12px;
-			line-height: 24px;
-			color: #fff;
-			background: rgba(#000, 0.3);
-			border-radius: 12px;
-
-			&:hover {
-				background: rgba(#000, 0.4);
-			}
-
-			&:active {
-				background: rgba(#000, 0.5);
-			}
-
-			&.fetching {
-				cursor: wait;
-			}
-
-			> i {
-				margin-right: 4px;
-			}
-		}
-
-		.messages {
-			padding: 8px 0;
-
-			> ::v-deep(*) {
-				margin-bottom: 16px;
-			}
 		}
 	}
 }

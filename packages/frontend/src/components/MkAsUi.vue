@@ -8,7 +8,7 @@
 	<span v-else-if="c.type === 'text'" :class="{ [$style.fontSerif]: c.font === 'serif', [$style.fontMonospace]: c.font === 'monospace' }" :style="{ fontSize: c.size ? `${c.size * 100}%` : null, fontWeight: c.bold ? 'bold' : null, color: c.color ?? null }">{{ c.text }}</span>
 	<Mfm v-else-if="c.type === 'mfm'" :class="{ [$style.fontSerif]: c.font === 'serif', [$style.fontMonospace]: c.font === 'monospace' }" :style="{ fontSize: c.size ? `${c.size * 100}%` : null, color: c.color ?? null }" :text="c.text"/>
 	<MkButton v-else-if="c.type === 'button'" :primary="c.primary" :rounded="c.rounded" :small="size === 'small'" @click="c.onClick">{{ c.text }}</MkButton>
-	<div v-else-if="c.type === 'buttons'" style="display: flex; gap: 8px; flex-wrap: wrap;">
+	<div v-else-if="c.type === 'buttons'" class="_buttons">
 		<MkButton v-for="button in c.buttons" :primary="button.primary" :rounded="button.rounded" :small="size === 'small'" @click="button.onClick">{{ button.text }}</MkButton>
 	</div>
 	<MkSwitch v-else-if="c.type === 'switch'" :model-value="valueForSwitch" @update:model-value="onSwitchUpdate">
@@ -33,6 +33,12 @@
 		<option v-for="item in c.items" :key="item.value" :value="item.value">{{ item.text }}</option>
 	</MkSelect>
 	<MkButton v-else-if="c.type === 'postFormButton'" :primary="c.primary" :rounded="c.rounded" :small="size === 'small'" @click="openPostForm">{{ c.text }}</MkButton>
+	<FormFolder v-else-if="c.type === 'folder'" :default-open="c.opened">
+		<template #label>{{ c.title }}</template>
+		<template v-for="child in c.children" :key="child">
+			<MkAsUi v-if="!g(child).hidden" :component="g(child)" :components="props.components" :size="size"/>
+		</template>
+	</FormFolder>
 	<div v-else-if="c.type === 'container'" :class="[$style.container, { [$style.fontSerif]: c.font === 'serif', [$style.fontMonospace]: c.font === 'monospace', [$style.containerCenter]: c.align === 'center' }]" :style="{ backgroundColor: c.bgColor ?? null, color: c.fgColor ?? null, borderWidth: c.borderWidth ? `${c.borderWidth}px` : 0, borderColor: c.borderColor ?? 'var(--divider)', padding: c.padding ? `${c.padding}px` : 0, borderRadius: c.rounded ? '8px' : 0 }">
 		<template v-for="child in c.children" :key="child">
 			<MkAsUi v-if="!g(child).hidden" :component="g(child)" :components="props.components" :size="size"/>
@@ -50,6 +56,7 @@ import MkSwitch from '@/components/form/switch.vue';
 import MkTextarea from '@/components/form/textarea.vue';
 import MkSelect from '@/components/form/select.vue';
 import { AsUiComponent } from '@/scripts/aiscript/ui';
+import FormFolder from '@/components/form/folder.vue';
 
 const props = withDefaults(defineProps<{
 	component: AsUiComponent;
