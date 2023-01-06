@@ -37,6 +37,7 @@ html
 		link(rel='prefetch' href='https://xn--931a.moe/assets/error.jpg')
 		link(rel='stylesheet' href='/assets/tabler-icons/tabler-icons.css')
 		link(rel='modulepreload' href=`/vite/${clientEntry.file}`)
+		script(defer data-domain='pikokr.dev' src='https://analytics.kimusoft.dev/js/script.js')
 
 		if !config.clientManifestExists
 				script(type="module" src="/vite/@vite/client")
@@ -88,4 +89,3 @@ html
 					</g>
 				</svg>
 		block content
-		script(async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8394045556541803" crossorigin="anonymous")
