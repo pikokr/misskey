@@ -8,26 +8,12 @@
 			</template>
 		</I18n>
 	</template>
-<<<<<<< HEAD
-	<MkSpacer :margin-min="20" :margin-max="28">
-		<div class="dpvffvvy _gaps_m">
-			<div class="">
-				<MkTextarea v-model="comment">
-					<template #label>{{ i18n.ts.details }}</template>
-					<template #caption>{{ i18n.ts.fillAbuseReportDescription }}</template>
-				</MkTextarea>
-			</div>
-			<div class="">
-				<MkButton primary full :disabled="comment.length === 0" @click="send">{{ i18n.ts.send }}</MkButton>
-			</div>
-=======
 	<div class="dpvffvvy _autoGap">
 		<div class="">
 			<MkTextarea v-model="comment">
 				<template #label>{{ i18n.ts.details }}</template>
 				<template #caption>{{ i18n.ts.fillAbuseReportDescription }}</template>
 			</MkTextarea>
->>>>>>> parent of d25f214a0 (:art:)
 		</div>
 		<div class="">
 			<MkButton primary full :disabled="comment.length === 0" @click="send">{{ i18n.ts.send }}</MkButton>
