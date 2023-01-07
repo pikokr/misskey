@@ -9,19 +9,23 @@ import '@/style.scss';
 //#region account indexedDB migration
 import { set } from '@/scripts/idb-proxy';
 
-if (localStorage.getItem('accounts') != null) {
-	set('accounts', JSON.parse(localStorage.getItem('accounts')!));
-	localStorage.removeItem('accounts');
+{
+	const accounts = miLocalStorage.getItem('accounts');
+	if (accounts) {
+		set('accounts', JSON.parse(accounts));
+		miLocalStorage.removeItem('accounts');
+	}
 }
 //#endregion
 
 import { computed, createApp, watch, markRaw, version as vueVersion, defineAsyncComponent } from 'vue';
+import { compareVersions } from 'compare-versions';
 import JSON5 from 'json5';
 
 import widgets from '@/widgets';
 import directives from '@/directives';
 import components from '@/components';
-import { version, ui, lang } from '@/config';
+import { version, ui, lang, host } from '@/config';
 import { applyTheme } from '@/scripts/theme';
 import { isDeviceDarkmode } from '@/scripts/is-device-darkmode';
 import { i18n } from '@/i18n';
@@ -39,6 +43,7 @@ import { reloadChannel } from '@/scripts/unison-reload';
 import { reactionPicker } from '@/scripts/reaction-picker';
 import { getUrlWithoutLoginId } from '@/scripts/login-id';
 import { getAccountFromId } from '@/scripts/get-account-from-id';
+import { miLocalStorage } from './local-storage';
 
 (async () => {
 	console.info(`Misskey v${version}`);
@@ -153,7 +158,7 @@ import { getAccountFromId } from '@/scripts/get-account-from-id';
 	const fetchInstanceMetaPromise = fetchInstance();
 
 	fetchInstanceMetaPromise.then(() => {
-		localStorage.setItem('v', instance.version);
+		miLocalStorage.setItem('v', instance.version);
 
 		// Init service worker
 		initializeSw();
@@ -222,14 +227,14 @@ import { getAccountFromId } from '@/scripts/get-account-from-id';
 	}
 
 	// クライアントが更新されたか？
-	const lastVersion = localStorage.getItem('lastVersion');
+	const lastVersion = miLocalStorage.getItem('lastVersion');
 	if (lastVersion !== version) {
-		localStorage.setItem('lastVersion', version);
+		miLocalStorage.setItem('lastVersion', version);
 
 		// テーマリビルドするため
-		localStorage.removeItem('theme');
+		miLocalStorage.removeItem('theme');
 
-		try { // 変なバージョン文字列来るとcompareVersionsでエラーになるため			
+		try { // 変なバージョン文字列来るとcompareVersionsでエラーになるため
 			if (lastVersion != null) {
 				// ログインしてる場合だけ
 				if ($i) {
@@ -243,7 +248,7 @@ import { getAccountFromId } from '@/scripts/get-account-from-id';
 	// NOTE: この処理は必ず↑のクライアント更新時処理より後に来ること(テーマ再構築のため)
 	watch(defaultStore.reactiveState.darkMode, (darkMode) => {
 		applyTheme(darkMode ? ColdDeviceStorage.get('darkTheme') : ColdDeviceStorage.get('lightTheme'));
-	}, { immediate: localStorage.theme == null });
+	}, { immediate: miLocalStorage.getItem('theme') == null });
 
 	const darkTheme = computed(ColdDeviceStorage.makeGetterSetter('darkTheme'));
 	const lightTheme = computed(ColdDeviceStorage.makeGetterSetter('lightTheme'));
@@ -340,7 +345,7 @@ import { getAccountFromId } from '@/scripts/get-account-from-id';
 			});
 		}
 
-		const lastUsed = localStorage.getItem('lastUsed');
+		const lastUsed = miLocalStorage.getItem('lastUsed');
 		if (lastUsed) {
 			const lastUsedDate = parseInt(lastUsed, 10);
 			// 二時間以上前なら
@@ -350,7 +355,15 @@ import { getAccountFromId } from '@/scripts/get-account-from-id';
 				}));
 			}
 		}
-		localStorage.setItem('lastUsed', Date.now().toString());
+		miLocalStorage.setItem('lastUsed', Date.now().toString());
+
+		const latestDonationInfoShownAt = miLocalStorage.getItem('latestDonationInfoShownAt');
+		const neverShowDonationInfo = miLocalStorage.getItem('neverShowDonationInfo');
+		if (neverShowDonationInfo !== 'true' && (new Date($i.createdAt).getTime() < (Date.now() - (1000 * 60 * 60 * 24 * 3)))) {
+			if (latestDonationInfoShownAt == null || (new Date(latestDonationInfoShownAt).getTime() < (Date.now() - (1000 * 60 * 60 * 24 * 30)))) {
+				popup(defineAsyncComponent(() => import('@/components/MkDonation.vue')), {}, {}, 'closed');
+			}
+		}
 
 		if ('Notification' in window) {
 			// 許可を得ていなかったらリクエスト
