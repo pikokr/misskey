@@ -4606,10 +4606,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browser-image-resizer@npm:@pikokr/mk-browser-image-resizer@2.2.1-misskey.3":
-  version: 2.2.1-misskey.3
-  resolution: "@pikokr/mk-browser-image-resizer@npm:2.2.1-misskey.3"
-  checksum: e46de20782ec9959b763b6da7fa81d5d687017c61aa0199302e094173c3b5d9b583207987f0218cf351064d9abae25b1cbc9f147f462efccb44c5bcfe66abf75
+"browser-image-resizer@npm:@pikokr/mk-browser-image-resizer@2.2.1-misskey.4":
+  version: 2.2.1-misskey.4
+  resolution: "@pikokr/mk-browser-image-resizer@npm:2.2.1-misskey.4"
+  checksum: c0e07e0778b55cc7f635a7719d9228928f163156ff117e00d8b5627431aa4c97e46f5ed5cd9a082b6be4f92c31c27ab81423db0c070091d95302ece41db45b43
   languageName: node
   linkType: hard
 
@@ -8262,7 +8262,7 @@ __metadata:
     autosize: 5.0.2
     blurhash: 2.0.4
     broadcast-channel: 4.19.1
-    browser-image-resizer: "npm:@pikokr/mk-browser-image-resizer@2.2.1-misskey.3"
+    browser-image-resizer: "npm:@pikokr/mk-browser-image-resizer@2.2.1-misskey.4"
     canvas-confetti: ^1.6.0
     chart.js: 4.1.2
     chartjs-adapter-date-fns: 3.0.0
