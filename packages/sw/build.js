@@ -21,8 +21,8 @@ esbuild.build({
 	define: {
 		_VERSION_: JSON.stringify(meta.version),
 		_LANGS_: JSON.stringify(Object.entries(locales).map(([k, v]) => [k, v._lang_])),
-		_ENV_: JSON.stringify(process.env.NODE_ENV),
-		_DEV_: process.env.NODE_ENV !== 'production',
+		_ENV_: JSON.stringify(process.env.NODE_ENV || ''),
+		_DEV_: JSON.stringify(process.env.NODE_ENV !== 'production'),
 		_PERF_PREFIX_: JSON.stringify('Misskey:'),
 	},
 	watch: watch ? {
