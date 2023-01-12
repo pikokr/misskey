@@ -1,4 +1,4 @@
-FROM node:18.12.1-bullseye AS builder
+FROM node:18.13.0-bullseye AS builder
 
 ARG NODE_ENV=production
 
@@ -26,7 +26,7 @@ RUN yarn zx patch-version.mjs
 RUN git submodule update --init
 RUN yarn build
 
-FROM node:18.12.1-bullseye-slim AS runner
+FROM node:18.13.0-bullseye-slim AS runner
 
 WORKDIR /misskey
 
