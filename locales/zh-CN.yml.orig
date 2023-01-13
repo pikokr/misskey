@@ -13,7 +13,7 @@ fetchingAsApObject: "在联邦宇宙查询中..."
 ok: "OK"
 gotIt: "我明白了"
 cancel: "取消"
-noThankYou: "不用"
+noThankYou: "不用，谢谢"
 enterUsername: "输入用户名"
 renotedBy: "由 {user} 转贴"
 noNotes: "没有帖子"
@@ -922,12 +922,66 @@ numberOfLikes: "点赞数"
 show: "显示"
 neverShow: "不再显示"
 remindMeLater: "稍后提醒我"
-<<<<<<< HEAD
-didYouLikeMisskey: "你在Misskey玩得还开心吗？"
-=======
 didYouLikeMisskey: "您喜欢Misskey吗？"
 pleaseDonate: "Misskey是{host}所使用的免费软件。为了今后也能够维持Misskey的开发，请在有余力的情况下进行捐助！"
->>>>>>> 60e545b2fd3951f0772485c55bf0854be5a32b5d
+roles: "角色"
+role: "角色"
+<<<<<<< HEAD
+noramlUser: "一般用户"
+=======
+normalUser: "普通用户"
+>>>>>>> 23810e3e1ef12bd1fa0e3dcc42a7e621f8ac3c34
+undefined: "未定义"
+assign: "分配"
+unassign: "取消分配"
+color: "颜色"
+_role:
+  new: "创建角色"
+  edit: "编辑角色"
+<<<<<<< HEAD
+  name: "角色名称"
+  description: "角色描述"
+  type: "角色种类"
+  descriptionOfType: "版主可以执行基本的审核操作。\n管理员可以更改实例的所有设置。"
+  isPublic: "角色公开"
+  descriptionOfIsPublic: "任何人都可以看到分配该角色的用户。而用户的个人资料也将显示该角色。"
+=======
+  name: "用户组名称"
+  description: "用户组的描述"
+  permission: "用户组的权限"
+  descriptionOfPermission: "<b>监察员</b>可以执行基本的审核操作。\n<b>管理员</b>可以更改实例的所有设置。"
+  assignTarget: "授权对象"
+  descriptionOfAssignTarget: "<b>手动</b>指手动选择谁被包括在这个用户组中。\n<b>符合条件</b>指设置条件以自动包括符合条件的用户。"
+  manual: "手动"
+  conditional: "符合条件"
+  condition: "条件"
+  isConditionalRole: "这是一个条件控制的用户组。"
+  isPublic: "公开用户组"
+  descriptionOfIsPublic: "任何人都可以看到分配该用户组的用户，用户的个人资料也将显示该用户组。"
+>>>>>>> 23810e3e1ef12bd1fa0e3dcc42a7e621f8ac3c34
+  options: "选项"
+  baseRole: "基本角色"
+  useBaseValue: "使用基本角色的值"
+  chooseRoleToAssign: "选择要分配的角色"
+  canEditMembersByModerator: "允许版主编辑成员"
+  descriptionOfCanEditMembersByModerator: "如果选中，版主和管理员都能够为用户分配/取消分配角色。如果未选中，则只有管理员可以执行此操作。"
+  _options:
+    gtlAvailable: "查看全局时间线"
+    ltlAvailable: "查看本地时间线"
+    canPublicNote: "允许公开发帖"
+    driveCapacity: "网盘容量"
+    antennaMax: "可创建的最大天线数量"
+<<<<<<< HEAD
+=======
+  _condition:
+    isLocal: "是本地用户"
+    isRemote: "是远程用户"
+    createdLessThan: "账户创建时间少于"
+    createdMoreThan: "账户创建时间超过"
+    and: "全部符合"
+    or: "任一符合"
+    not: "不符合"
+>>>>>>> 23810e3e1ef12bd1fa0e3dcc42a7e621f8ac3c34
 _sensitiveMediaDetection:
   description: "可以使用机器学习技术自动检测敏感媒体，以便进行审核。服务器负载将略微增加。"
   sensitivity: "检测敏感度"

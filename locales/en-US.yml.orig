@@ -925,8 +925,13 @@ remindMeLater: "Maybe later"
 didYouLikeMisskey: "Have you taken a liking to Misskey?"
 pleaseDonate: "{host} uses the free software, Misskey. We would highly appreciate your donations so development of Misskey can continue!"
 roles: "Roles"
+<<<<<<< HEAD
+role: "Roles"
+noramlUser: "Normal user"
+=======
 role: "Role"
 normalUser: "Normal user"
+>>>>>>> 23810e3e1ef12bd1fa0e3dcc42a7e621f8ac3c34
 undefined: "Undefined"
 assign: "Assign"
 unassign: "Unassign"
@@ -936,6 +941,18 @@ _role:
   edit: "Edit role"
   name: "Role name"
   description: "Role description"
+<<<<<<< HEAD
+  type: "Role type"
+  descriptionOfType: "Moderators can perform basic moderation operations.\n\nThe administrator can change all the settings of the instance."
+  isPublic: "Public role"
+  descriptionOfIsPublic: "Anyone can see if the user assigned to a role. Roles are also displayed in the user's profile."
+  options: "Role options"
+  baseRole: "Base role"
+  useBaseValue: "Use the default base role"
+  chooseRoleToAssign: "Select the role you want to assign"
+  canEditMembersByModerator: "Allow moderators to edit members"
+  descriptionOfCanEditMembersByModerator: "When turned on, moderators, in addition to the administrator, will be able to assign and unssign users to this role. When turned off, only the administrator will be able to assign users."
+=======
   permission: "Role permissions"
   isPublic: "Public role"
   descriptionOfIsPublic: "Anyone will be able to view a list of users assigned to this role. In addition, this role will be displayed in the profiles of assigned users."
@@ -945,6 +962,7 @@ _role:
   chooseRoleToAssign: "Select the role to assign"
   canEditMembersByModerator: "Allow moderators to edit the list members of this role"
   descriptionOfCanEditMembersByModerator: "When turned on, moderators as well as administrators will be able to assign and unassign users to this role. When turned off, only administrators will be able to assign users."
+>>>>>>> 23810e3e1ef12bd1fa0e3dcc42a7e621f8ac3c34
   _options:
     gtlAvailable: "Viewing the global timeline"
     ltlAvailable: "Viewing the local timeline"

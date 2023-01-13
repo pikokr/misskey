@@ -924,6 +924,9 @@ neverShow: "Nicht wieder anzeigen"
 remindMeLater: "Vielleicht später"
 didYouLikeMisskey: "Gefällt dir Misskey?"
 pleaseDonate: "Misskey ist die kostenlose Software, die von {host} verwendet wird. Wir würden uns über Spenden freuen, damit dessen Entwicklung weitergeführt werden kann!"
+<<<<<<< HEAD
+color: "Farbe"
+=======
 roles: "Rollen"
 role: "Rolle"
 normalUser: "Standardbenutzer"
@@ -951,6 +954,7 @@ _role:
     canPublicNote: "Kann öffentliche Notizen erstellen"
     driveCapacity: "Drive-Kapazität"
     antennaMax: "Maximale Anzahl an Antennen"
+>>>>>>> 23810e3e1ef12bd1fa0e3dcc42a7e621f8ac3c34
 _sensitiveMediaDetection:
   description: "Ermöglicht eine Erleichterung der Servermoderation durch die automatische Erkennungen von NSFW-Medien unter Verwendung von Machine Learning. Hierdurch wird die Serverlast etwas erhöht."
   sensitivity: "Erkennungssensitivität"
