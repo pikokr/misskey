@@ -431,6 +431,149 @@ defineExpose({
 	top: 0;
 	left: 0;
 
+<<<<<<< HEAD
+	> .body {
+		overflow: clip;
+		display: flex;
+		flex-direction: column;
+		contain: content;
+		width: 100%;
+		height: 100%;
+		border-radius: var(--radius);
+
+		> .header {
+			--height: 39px;
+
+			&.mini {
+				--height: 32px;
+			}
+
+			display: flex;
+			position: relative;
+			z-index: 1;
+			flex-shrink: 0;
+			user-select: none;
+			height: var(--height);
+			background: var(--windowHeader);
+			-webkit-backdrop-filter: var(--blur, blur(15px));
+			backdrop-filter: var(--blur, blur(15px));
+			//border-bottom: solid 1px var(--divider);
+			font-size: 95%;
+			font-weight: bold;
+
+			> .left, > .right {
+				> .button {
+					height: var(--height);
+					width: var(--height);
+
+					&:hover {
+						color: var(--fgHighlighted);
+					}
+
+					&.highlighted {
+						color: var(--accent);
+					}
+				}
+			}
+
+			> .left {
+				margin-right: 16px;
+			}
+
+			> .right {
+				min-width: 16px;
+			}
+
+			> .title {
+				flex: 1;
+				position: relative;
+				line-height: var(--height);
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				cursor: move;
+			}
+		}
+
+		> .body {
+			flex: 1;
+			overflow: auto;
+			background: var(--panel);
+		}
+	}
+
+	> .handle {
+		$size: 8px;
+
+		position: absolute;
+
+		&.top {
+			top: -($size);
+			left: 0;
+			width: 100%;
+			height: $size;
+			cursor: ns-resize;
+		}
+
+		&.right {
+			top: 0;
+			right: -($size);
+			width: $size;
+			height: 100%;
+			cursor: ew-resize;
+		}
+
+		&.bottom {
+			bottom: -($size);
+			left: 0;
+			width: 100%;
+			height: $size;
+			cursor: ns-resize;
+		}
+
+		&.left {
+			top: 0;
+			left: -($size);
+			width: $size;
+			height: 100%;
+			cursor: ew-resize;
+		}
+
+		&.top-left {
+			top: -($size);
+			left: -($size);
+			width: $size * 2;
+			height: $size * 2;
+			cursor: nwse-resize;
+		}
+
+		&.top-right {
+			top: -($size);
+			right: -($size);
+			width: $size * 2;
+			height: $size * 2;
+			cursor: nesw-resize;
+		}
+
+		&.bottom-right {
+			bottom: -($size);
+			right: -($size);
+			width: $size * 2;
+			height: $size * 2;
+			cursor: nwse-resize;
+		}
+
+		&.bottom-left {
+			bottom: -($size);
+			left: -($size);
+			width: $size * 2;
+			height: $size * 2;
+			cursor: nesw-resize;
+		}
+	}
+
+=======
+>>>>>>> 34a7b521053efebe6960760273fa0fa19afdd107
 	&.maximized {
 		> .body {
 			border-radius: 0;
@@ -490,13 +633,15 @@ defineExpose({
 	min-width: 16px;
 }
 
-		> .body {
-			flex: 1;
-			overflow: auto;
-			background: var(--panel);
-			container-type: inline-size;
-		}
-	}
+.headerTitle {
+	flex: 1;
+	position: relative;
+	line-height: var(--height);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: move;
+}
 
 .content {
 	flex: 1;
