@@ -22,6 +22,11 @@ COPY . ./
 ARG NODE_ENV=production
 
 RUN git submodule update --init
+
+ENV DOCKER=true
+
+RUN pnpm zx patch-version.mjs
+
 RUN pnpm build
 
 FROM node:${NODE_VERSION}-slim AS runner
