@@ -5,10 +5,10 @@
 	@drop.stop="onDrop"
 >
 	<textarea
-		:class="$style['textarea']"
-		class="_acrylic"
 		ref="textEl"
 		v-model="text"
+		:class="$style['textarea']"
+		class="_acrylic"
 		:placeholder="i18n.ts.inputMessageHere"
 		@keydown="onKeydown"
 		@compositionupdate="onCompositionUpdate"
@@ -19,12 +19,18 @@
 		<div :class="$style['buttons']">
 			<button class="_button" :class="$style['button']" @click="chooseFile"><i class="ti ti-photo-plus"></i></button>
 			<button class="_button" :class="$style['button']" @click="insertEmoji"><i class="ti ti-mood-happy"></i></button>
-			<button class="_button" :class="[$style['button'], $style['send']]" :disabled="!canSend || sending" :title="i18n.ts.send" @click="send">
-				<template v-if="!sending"><i class="ti ti-send"></i></template><template v-if="sending"><MkLoading :em="true"/></template>
+			<button
+				class="_button" :class="[$style['button'], $style['send']]" :disabled="!canSend || sending"
+				:title="i18n.ts.send" @click="send"
+			>
+				<template v-if="!sending"><i class="ti ti-send"></i></template>
+				<template v-if="sending">
+					<MkLoading :em="true"/>
+				</template>
 			</button>
 		</div>
 	</footer>
-	<input :class="$style['file-input']" ref="fileEl" type="file" @change="onChangeFile"/>
+	<input ref="fileEl" :class="$style['file-input']" type="file" @change="onChangeFile"/>
 </div>
 </template>
 
@@ -99,9 +105,9 @@ function onDragover(ev: DragEvent) {
 		switch (ev.dataTransfer.effectAllowed) {
 			case 'all':
 			case 'uninitialized':
-			case 'copy': 
-			case 'copyLink': 
-			case 'copyMove': 
+			case 'copy':
+			case 'copyLink':
+			case 'copyMove':
 				ev.dataTransfer.dropEffect = 'copy';
 				break;
 			case 'linkMove':
@@ -262,29 +268,28 @@ defineExpose({
 	box-sizing: border-box;
 	color: var(--fg);
 }
-	border-radius: 0;
 
-	> textarea {
-		cursor: auto;
-		display: block;
-		width: 100%;
-		min-width: 100%;
-		max-width: 100%;
-		min-height: 80px;
-		margin: 0;
-		padding: 16px 16px 0 16px;
-		resize: none;
-		font-size: 1em;
-		font-family: inherit;
-		outline: none;
-		border: none;
-		border-radius: 0;
-		box-shadow: none;
-		box-sizing: border-box;
-		color: var(--fg);
-		background: rgba(12, 18, 16, 0.85);
-		backdrop-filter: var(--blur, blur(15px));
-	}
+textarea {
+	cursor: auto;
+	display: block;
+	width: 100%;
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 80px;
+	margin: 0;
+	padding: 16px 16px 0 16px;
+	resize: none;
+	font-size: 1em;
+	font-family: inherit;
+	outline: none;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	box-sizing: border-box;
+	color: var(--fg);
+	background: rgba(12, 18, 16, 0.85);
+	backdrop-filter: var(--blur, blur(15px));
+}
 
 .footer {
 	position: sticky;
@@ -298,6 +303,7 @@ defineExpose({
 	background: transparent;
 	cursor: pointer;
 }
+
 /*
 .files {
 	display: block;
@@ -369,6 +375,7 @@ defineExpose({
 		transition: color 0s ease;
 	}
 }
+
 .send {
 	margin-left: auto;
 	color: var(--accent);
