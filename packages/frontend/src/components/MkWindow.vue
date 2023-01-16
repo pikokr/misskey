@@ -11,16 +11,36 @@
 		<div :class="$style.body" class="_shadow" @mousedown="onBodyMousedown" @keydown="onKeydown">
 			<div :class="[$style.header, { [$style.mini]: mini }]" @contextmenu.prevent.stop="onContextmenu">
 				<span :class="$style.headerLeft">
-					<button v-for="button in buttonsLeft" v-tooltip="button.title" class="_button" :class="[$style.headerButton, { [$style.highlighted]: button.highlighted }]" @click="button.onClick"><i :class="button.icon"></i></button>
+					<button
+						v-for="button in buttonsLeft" v-tooltip="button.title" class="_button"
+						:class="[$style.headerButton, { [$style.highlighted]: button.highlighted }]"
+						@click="button.onClick"
+					><i :class="button.icon"></i></button>
 				</span>
-				<span :class="$style.headerTitle" @mousedown.prevent="onHeaderMousedown" @touchstart.prevent="onHeaderMousedown">
+				<span
+					:class="$style.headerTitle" @mousedown.prevent="onHeaderMousedown"
+					@touchstart.prevent="onHeaderMousedown"
+				>
 					<slot name="header"></slot>
 				</span>
 				<span :class="$style.headerRight">
-					<button v-for="button in buttonsRight" v-tooltip="button.title" class="_button" :class="[$style.headerButton, { [$style.highlighted]: button.highlighted }]" @click="button.onClick"><i :class="button.icon"></i></button>
-					<button v-if="canResize && maximized" v-tooltip="i18n.ts.windowRestore" class="_button" :class="$style.headerButton" @click="unMaximize()"><i class="ti ti-picture-in-picture"></i></button>
-					<button v-else-if="canResize && !maximized" v-tooltip="i18n.ts.windowMaximize" class="_button" :class="$style.headerButton" @click="maximize()"><i class="ti ti-rectangle"></i></button>
-					<button v-if="closeButton" v-tooltip="i18n.ts.close" class="_button" :class="$style.headerButton" @click="close()"><i class="ti ti-x"></i></button>
+					<button
+						v-for="button in buttonsRight" v-tooltip="button.title" class="_button"
+						:class="[$style.headerButton, { [$style.highlighted]: button.highlighted }]"
+						@click="button.onClick"
+					><i :class="button.icon"></i></button>
+					<button
+						v-if="canResize && maximized" v-tooltip="i18n.ts.windowRestore" class="_button"
+						:class="$style.headerButton" @click="unMaximize()"
+					><i class="ti ti-picture-in-picture"></i></button>
+					<button
+						v-else-if="canResize && !maximized" v-tooltip="i18n.ts.windowMaximize" class="_button"
+						:class="$style.headerButton" @click="maximize()"
+					><i class="ti ti-rectangle"></i></button>
+					<button
+						v-if="closeButton" v-tooltip="i18n.ts.close" class="_button" :class="$style.headerButton"
+						@click="close()"
+					><i class="ti ti-x"></i></button>
 				</span>
 			</div>
 			<div :class="$style.content">
@@ -419,6 +439,7 @@ defineExpose({
 .transition_window_leaveActive {
 	transition: opacity 0.2s, transform 0.2s !important;
 }
+
 .transition_window_enterFrom,
 .transition_window_leaveTo {
 	pointer-events: none;
@@ -490,13 +511,12 @@ defineExpose({
 	min-width: 16px;
 }
 
-		> .body {
-			flex: 1;
-			overflow: auto;
-			background: var(--panel);
-			container-type: inline-size;
-		}
-	}
+.body {
+	flex: 1;
+	overflow: auto;
+	background: var(--panel);
+	container-type: inline-size;
+}
 
 .content {
 	flex: 1;

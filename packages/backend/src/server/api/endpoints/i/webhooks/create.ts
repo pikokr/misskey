@@ -6,6 +6,7 @@ import { webhookEventTypes } from '@/models/entities/Webhook.js';
 import { GlobalEventService } from '@/core/GlobalEventService.js';
 import { DI } from '@/di-symbols.js';
 import { RoleService } from '@/core/RoleService.js';
+import { ApiError } from '@/server/api/error.js';
 
 export const meta = {
 	tags: ['webhooks'],
@@ -53,7 +54,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 			const currentWebhooksCount = await this.webhooksRepository.countBy({
 				userId: me.id,
 			});
-			if (currentWebhooksCount > (await this.roleService.getUserRoleOptions(me.id)).webhookLimit) {
+			if (currentWebhooksCount > (await this.roleService.getUserPolicies(me.id)).webhookLimit) {
 				throw new ApiError(meta.errors.tooManyWebhooks);
 			}
 

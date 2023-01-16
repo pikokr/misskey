@@ -12,6 +12,15 @@ import MkA from '@/components/global/MkA.vue';
 import { host } from '@/config';
 import { MFM_TAGS } from '@/scripts/mfm-tags';
 
+const QUOTE_STYLE = `
+display: block;
+margin: 8px;
+padding: 6px 0 6px 12px;
+color: var(--fg);
+border-left: solid 3px var(--fg);
+opacity: 0.7;
+`.split('\n').join(' ');
+
 export default defineComponent({
 	props: {
 		text: {
@@ -276,11 +285,11 @@ export default defineComponent({
 				case 'quote': {
 					if (!this.nowrap) {
 						return [h('div', {
-							class: 'quote',
+							style: QUOTE_STYLE,
 						}, genEl(token.children))];
 					} else {
 						return [h('span', {
-							class: 'quote',
+							style: QUOTE_STYLE,
 						}, genEl(token.children))];
 					}
 				}
@@ -290,7 +299,8 @@ export default defineComponent({
 						key: Math.random(),
 						emoji: `:${token.props.name}:`,
 						normal: this.plain,
-						host: this.author.host,
+						// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+						host: this.author?.host,
 					})];
 				}
 
