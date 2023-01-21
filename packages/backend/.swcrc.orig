@@ -1,4 +1,17 @@
 {
+<<<<<<< HEAD
+	"$schema": "https://json.schemastore.org/swcrc",
+	"jsc": {
+		"parser": {
+			"syntax": "typescript",
+			"dynamicImport": true,
+			"decorators": true
+		},
+		"transform": {
+			"legacyDecorator": true,
+			"decoratorMetadata": true
+		},
+=======
   "$schema": "https://json.schemastore.org/swcrc",
   "jsc": {
     "parser": {
@@ -10,6 +23,7 @@
       "legacyDecorator": true,
       "decoratorMetadata": true
     },
+>>>>>>> 951ab90b1afff4e7ba61496cdd00dc1a94113491
 		"experimental": {
 			"keepImportAssertions": true
 		},
@@ -20,6 +34,11 @@
 			]
 		},
 		"target": "es2021"
+<<<<<<< HEAD
+	},
+	"minify": false
+=======
   },
   "minify": false
+>>>>>>> 951ab90b1afff4e7ba61496cdd00dc1a94113491
 }
