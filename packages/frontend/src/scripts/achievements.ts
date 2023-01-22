@@ -37,8 +37,10 @@ export const ACHIEVEMENT_TYPES = [
 	'passedSinceAccountCreated2',
 	'passedSinceAccountCreated3',
 	'loggedInOnBirthday',
+	'loggedInOnNewYearsDay',
 	'noteClipped1',
 	'noteFavorited1',
+	'myNoteFavorited1',
 	'profileFilled',
 	'markedAsCat',
 	'following1',
@@ -54,6 +56,7 @@ export const ACHIEVEMENT_TYPES = [
 	'followers500',
 	'followers1000',
 	'collectAchievements30',
+	'viewAchievements3min',
 	'iLoveMisskey',
 	'client30min',
 	'noteDeletedWithin1min',
@@ -61,6 +64,8 @@ export const ACHIEVEMENT_TYPES = [
 	'postedAt0min0sec',
 	'selfQuote',
 	'htl20npm',
+	'outputHelloWorldOnScratchpad',
+	'open3windows',
 	'driveFolderCircularReference',
 	'reactWithoutRead',
 	'clickedClickHere',
@@ -236,6 +241,11 @@ export const ACHIEVEMENT_BADGES = {
 		bg: null,
 		frame: 'bronze',
 	},
+	'myNoteFavorited1': {
+		img: '/fluent-emoji/1f320.png',
+		bg: null,
+		frame: 'silver',
+	},
 	'profileFilled': {
 		img: '/fluent-emoji/1f44c.png',
 		bg: 'linear-gradient(0deg, rgb(187 183 59), rgb(255 143 77))',
@@ -287,7 +297,7 @@ export const ACHIEVEMENT_BADGES = {
 		frame: 'bronze',
 	},
 	'followers100': {
-		img: '/fluent-emoji/1f396.png',
+		img: '/fluent-emoji/1f60e.png',
 		bg: 'linear-gradient(0deg, rgb(144 224 255), rgb(255 168 252))',
 		frame: 'silver',
 	},
@@ -310,6 +320,11 @@ export const ACHIEVEMENT_BADGES = {
 		img: '/fluent-emoji/1f3c5.png',
 		bg: 'linear-gradient(0deg, rgb(255 77 77), rgb(247 155 214))',
 		frame: 'silver',
+	},
+	'viewAchievements3min': {
+		img: '/fluent-emoji/1f3c5.png',
+		bg: 'linear-gradient(0deg, rgb(144 224 255), rgb(255 168 252))',
+		frame: 'bronze',
 	},
 	'iLoveMisskey': {
 		img: '/fluent-emoji/2764.png',
@@ -344,6 +359,16 @@ export const ACHIEVEMENT_BADGES = {
 	'htl20npm': {
 		img: '/fluent-emoji/1f30a.png',
 		bg: 'linear-gradient(0deg, rgb(220 223 225), rgb(172 192 207))',
+		frame: 'bronze',
+	},
+	'outputHelloWorldOnScratchpad': {
+		img: '/fluent-emoji/1f530.png',
+		bg: 'linear-gradient(0deg, rgb(58 231 198), rgb(37 194 255))',
+		frame: 'bronze',
+	},
+	'open3windows': {
+		img: '/fluent-emoji/1f5a5.png',
+		bg: 'linear-gradient(0deg, rgb(144 224 255), rgb(255 168 252))',
 		frame: 'bronze',
 	},
 	'driveFolderCircularReference': {
@@ -388,7 +413,12 @@ export const ACHIEVEMENT_BADGES = {
 	},
 	'loggedInOnBirthday': {
 		img: '/fluent-emoji/1f382.png',
-		bg: 'linear-gradient(0deg, rgb(144 224 255), rgb(255 168 252))',
+		bg: 'linear-gradient(0deg, rgb(255 77 77), rgb(247 155 214))',
+		frame: 'silver',
+	},
+	'loggedInOnNewYearsDay': {
+		img: '/fluent-emoji/1f38d.png',
+		bg: 'linear-gradient(0deg, rgb(255 144 144), rgb(255 232 168))',
 		frame: 'silver',
 	},
 	'cookieClicked': {
@@ -409,16 +439,22 @@ export const ACHIEVEMENT_BADGES = {
 
 export const claimedAchievements = ($i && $i.achievements) ? $i.achievements.map(x => x.name) : [];
 
-export function claimAchievement(type: typeof ACHIEVEMENT_TYPES[number]) {
+const claimingQueue = new Set<string>();
+
+export async function claimAchievement(type: typeof ACHIEVEMENT_TYPES[number]) {
 	if (claimedAchievements.includes(type)) return;
-	os.api('i/claim-achievement', { name: type });
+	claimingQueue.add(type);
 	claimedAchievements.push(type);
+	await new Promise(resolve => setTimeout(resolve, (claimingQueue.size - 1) * 500));
+	window.setTimeout(() => {
+		claimingQueue.delete(type);
+	}, 500);
+	os.api('i/claim-achievement', { name: type });
 }
 
 if (_DEV_) {
-	(window as any).unlockAllAchievements = async () => {
+	(window as any).unlockAllAchievements = () => {
 		for (const t of ACHIEVEMENT_TYPES) {
-			await new Promise(resolve => setTimeout(resolve, 100));
 			claimAchievement(t);
 		}
 	};

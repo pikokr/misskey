@@ -41,8 +41,10 @@ const ACHIEVEMENT_TYPES = [
 	'passedSinceAccountCreated2',
 	'passedSinceAccountCreated3',
 	'loggedInOnBirthday',
+	'loggedInOnNewYearsDay',
 	'noteClipped1',
 	'noteFavorited1',
+	'myNoteFavorited1',
 	'profileFilled',
 	'markedAsCat',
 	'following1',
@@ -58,6 +60,7 @@ const ACHIEVEMENT_TYPES = [
 	'followers500',
 	'followers1000',
 	'collectAchievements30',
+	'viewAchievements3min',
 	'iLoveMisskey',
 	'client30min',
 	'noteDeletedWithin1min',
@@ -65,6 +68,8 @@ const ACHIEVEMENT_TYPES = [
 	'postedAt0min0sec',
 	'selfQuote',
 	'htl20npm',
+	'outputHelloWorldOnScratchpad',
+	'open3windows',
 	'driveFolderCircularReference',
 	'reactWithoutRead',
 	'clickedClickHere',
@@ -90,7 +95,7 @@ export class AchievementService {
 	@bindThis
 	public async create(
 		userId: User['id'],
-		type: string,
+		type: typeof ACHIEVEMENT_TYPES[number],
 	): Promise<void> {
 		if (!ACHIEVEMENT_TYPES.includes(type)) return;
 
