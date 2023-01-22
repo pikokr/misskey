@@ -1049,6 +1049,9 @@ _achievements:
     _noteFavorited1:
       title: "星をみるひと"
       description: "初めてノートをお気に入りに登録した"
+    _myNoteFavorited1:
+      title: "星が欲しい"
+      description: "自分のノートが他の人からお気に入りに登録された"
     _profileFilled:
       title: "準備万端"
       description: "プロフィール設定を行った"
@@ -1095,6 +1098,9 @@ _achievements:
     _collectAchievements30:
       title: "実績コレクター"
       description: "実績を30個以上獲得した"
+    _viewAchievements3min:
+      title: "実績好き"
+      description: "実績一覧を3分以上眺め続けた"
     _iLoveMisskey:
       title: "I Love Misskey"
       description: "\"I ❤ #Misskey\"を投稿した"
@@ -1119,6 +1125,12 @@ _achievements:
     _htl20npm:
       title: "流れるTL"
       description: "ホームタイムラインの流速が20npmを越す"
+    _outputHelloWorldOnScratchpad:
+      title: "Hello, world!"
+      description: "スクラッチパッドで hello world を出力した"
+    _open3windows:
+      title: "マルチウィンドウ"
+      description: "ウィンドウを3つ以上開いた状態にした"
     _driveFolderCircularReference:
       title: "循環参照"
       description: "ドライブのフォルダを再帰的な入れ子にしようとした"
@@ -1146,6 +1158,10 @@ _achievements:
     _loggedInOnBirthday:
       title: "ハッピーバースデー"
       description: "誕生日にログインした"
+    _loggedInOnNewYearsDay:
+      title: "あけましておめでとうございます"
+      description: "元日にログインした"
+      flavor: "今年も弊インスタンスをよろしくお願いします"
     _cookieClicked:
       title: "クッキーをクリックするゲーム"
       description: "クッキーをクリックした"
